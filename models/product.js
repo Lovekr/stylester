@@ -111,9 +111,11 @@ var productSchema = new Schema({
 
 	SKIN_TYPE: { type: String },
 
-	CONCERN: { type:String }
+	CONCERN: { type:String },
 
-	});
+	STATUS: {type:String}
+
+	},{ strict: false });
 
     productSchema.plugin(mongoosePaginate);
 

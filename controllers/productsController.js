@@ -3,6 +3,10 @@ var mongoose = require('mongoose');
 require('../models/product.js');
 var Product  = mongoose.model('Product');
 var async = require('async');
+mongoose.set('useFindAndModify', false);
+const { Parser } = require('json2csv');
+const fs = require('fs');
+
 
 
 exports.postProducts = function (req, res) {
@@ -62,7 +66,7 @@ exports.getProducts = function(req, res, next) {
     skip = size * (pageNo - 1)
     limit = size
 
-    console.log(skip)
+   
   
 // function products_count() { Product.find().lean().count().sort({_id: 'asc'}).exec();
 // }
@@ -72,6 +76,15 @@ exports.getProducts = function(req, res, next) {
             if(err){ callback(err, null); }
             else{
                    callback(null, count);
+                }
+          });
+    };
+
+        var countEnabledDoc = function(callback){
+          Product.countDocuments({STATUS:'enable'}, function(err, countEnable){
+            if(err){ callback(err, null); }
+            else{
+                   callback(null, countEnable);
                 }
           });
     };
@@ -89,10 +102,9 @@ exports.getProducts = function(req, res, next) {
         //var products_list = Product.find().lean().skip(skip).limit(limit).sort({_id: 'asc'}).exec(function (err, productes) {});
 
 
-async.parallel([countQuery, retrieveQuery], function(err, results){
-   
+async.parallel([countQuery, retrieveQuery, countEnabledDoc], function(err, results){   
 
-       return  res.json({data: results[1], totalCount: results[0]});
+       return  res.json({data: results[1], totalCount: results[0], enableCount:results[2]});
 
     });
 
@@ -112,5 +124,147 @@ async.parallel([countQuery, retrieveQuery], function(err, results){
 
 exports.setStatus = function(req,res,next)
 {
-  console.log(req);
+  //console.log(req.body.value);
+  var value = req.body.value;
+  var id = req.body._id;
+  //Product.findByIdAndUpdate(_id:id, { $set: { 'STATUS': value }}, { new: true }, { useFindAndModify: false });
+console.log(id);
+Product.updateOne(
+     {_id: id}, 
+     {'STATUS' : value },
+     {multi:true}, 
+       function(err, numberAffected){ 
+         if(err) 
+         {
+           res.status(400).json({ status: 400, message: err.message });
+         }
+         if(numberAffected)
+         {
+            // Product.find({ "STATUS": { $exists: false, $ne: null } }).lean().limit(4).sort({_id: 'asc'}).exec(function(err, doc){
+            //                 if(err){ callback(err, null); }
+            //                 else{
+            //                    res.status(200).json({ status: 200, data: doc, message: "Succesfully Products Retrieved" });
+
+            //                 }
+            //           });
+    
+            res.status(200).json({ status: 200, message: 'Updated Successfully' });
+         }
+         
+       });
+}
+
+exports.getAllProducts = function(req,res,next)
+{
+    var productlist = [];
+    const initialTime = Date.now();  
+    let cont = 0;
+
+    const stream = Product.find().lean().cursor();
+    stream.on('data', (data) => { productlist.push(data); });
+
+    stream.on('close', () => {
+        res.send({data:productlist});
+    const totalTime = Date.now() - initialTime;
+    console.log(`Execution ended. Number of elements: ${cont}. Elapsed time: ${(totalTime / 1000)} seconds`);
+    
+    });
+}
+
+exports.exportproducts =  function (req, res, next) {
+ 
+  var status = req.query.value; 
+  const fields = [
+	'SR_NO',
+	'STYLSTER_ID',
+	'PRODUCT_NAME',
+	'CATEGORY',
+	'SUB_CATEGORY',
+	'SUPER_SUB_CATEGORY',
+	'IMAGE_LINK',
+	'SIZE',
+	'COLOUR',
+	'BRAND',
+	'WEBSITE_NAME',
+	'PATTERN',
+	'MATERIAL',
+	'OCCASION',
+	'PRICE',
+	'OLD_PRICE',
+	'DISCOUNT_PERCENTAGE',
+	'WEBSITE_LINK',
+	'DESCRIPTION',
+	'STORE_PRODUCT_ID',
+	'GENDER',
+	'FIT',
+	'LENGTH',
+	'NECK',
+	'SLEEVE_LENGTH',
+	'COLLAR',
+	'TECHNOLOGY',
+	'TYPE',
+	'SPORT',
+	'MULTI_PACK_SET',
+	'FEATURES',
+	'SLEEVE_STYLE',
+	'TRANSPARENCY',
+	'DISTRESS',	
+	'FADE',
+	'SHADE',
+	'WAIST_RISE',
+	'PADDING',
+	'SEAM',
+	'STRAPS',
+	'WIRING',
+	'HEEL_HEIGHT',
+	'HEEL_TYPE',
+	'EFFECT',
+	'APPLICATION',
+	'INGREDIENT',
+	'SPECIALITY',
+	'FINISH',
+	'PREFERENCE',
+	'FORMULATION',
+	'COVERAGE',
+	'SKIN_TYPE',
+	'CONCERN',
+	'STATUS'];
+
+  const opts = { fields };
+
+
+  Product.find({STATUS:status}).lean().sort({_id: 'asc'}).exec(function (err, products) {
+   
+    if (err!=null) {
+      return res.status(500).json({ err });
+    }
+    else
+    {
+      let csv;
+      try {
+        const parser = new Parser(opts);
+        const csv = parser.parse(products);
+        console.log(csv);
+      } catch (err) {console.log("csv");
+        return res.status(500).json({ err });
+      }
+
+      const dateTime = 'sample';
+      const filePath = path.join(__dirname, "..", "public", "files", "csv-" + dateTime + ".csv");
+
+      fs.writeFile(filePath, csv, function (err) {
+        if (err) {
+          return res.json(err).status(500);
+        }
+        else {
+          setTimeout(function () {
+            fs.unlinkSync(filePath); // delete this file after 30 seconds
+          }, 30000)
+          return res.json("/files/csv-" + dateTime + ".csv");
+        }
+      });
+      
+    }
+
+  });
 }
