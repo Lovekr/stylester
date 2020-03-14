@@ -80,7 +80,7 @@ exports.getProducts = function(req, res, next) {
           });
     };
 
-        var countEnabledDoc = function(callback){
+    var countEnabledDoc = function(callback){
           Product.countDocuments({STATUS:'enable'}, function(err, countEnable){
             if(err){ callback(err, null); }
             else{
@@ -89,7 +89,7 @@ exports.getProducts = function(req, res, next) {
           });
     };
 
-  var retrieveQuery = function(callback){
+    var retrieveQuery = function(callback){
         Product.find().lean().skip(skip).limit(limit).sort({_id: 'asc'})
             .exec(function(err, doc){
                             if(err){ callback(err, null); }
@@ -267,4 +267,83 @@ exports.exportproducts =  function (req, res, next) {
     }
 
   });
+}
+
+
+exports.searchProducts = function(req,res,next)
+{
+  
+  var queryvalue = req.query.searchtext;
+
+  var pageNo = parseInt(req.query.pageNo); 
+
+  var size = parseInt(req.query.limit); 
+
+    if (pageNo < 0 || pageNo === 0) {
+      response = { "error": true, "message": "invalid page number, should start with 1" };
+      return res.json(response)
+  }
+  skip = size * (pageNo - 1);
+  limit = size;
+
+  var re = new RegExp(queryvalue, 'i');
+
+    var getSearchResults = function(callback)
+    {
+      
+
+      Product.find().or([
+        { 'PRODUCT_NAME': { $regex: re }},
+        { 'CATEGORY': { $regex: re }},
+        { 'SUB_CATEGORY': { $regex: re }},
+        { 'SIZE': { $regex: re }},
+        { 'COLOUR': { $regex: re }},
+        { 'BRAND': { $regex: re }},
+        { 'WEBSITE_NAME': { $regex: re }},
+        { 'PATTERN': { $regex: re }},
+        { 'MATERIAL': { $regex: re }},
+        { 'OCCASION': { $regex: re }},
+        { 'PRICE': { $regex: re }}]).lean().skip(skip).limit(limit).sort({_id: 'asc'}).exec(function(err, products) {
+        if(err)
+        { callback(err, null); }
+        else{
+            callback(null, products);
+            }
+      });
+    };
+    
+
+    var getSearchCount = function(callback)
+    {
+        Product.countDocuments().or([
+          { 'PRODUCT_NAME': { $regex: re }},
+          { 'CATEGORY': { $regex: re }},
+          { 'SUB_CATEGORY': { $regex: re }},
+          { 'SIZE': { $regex: re }},
+          { 'COLOUR': { $regex: re }},
+          { 'BRAND': { $regex: re }},
+          { 'WEBSITE_NAME': { $regex: re }},
+          { 'PATTERN': { $regex: re }},
+          { 'MATERIAL': { $regex: re }},
+          { 'OCCASION': { $regex: re }},
+          { 'PRICE': { $regex: re }}]).lean().exec(function(err, count) 
+          {
+          if(err)
+        { callback(err, null); }
+        else{
+            callback(null, count);
+            }
+      });
+    };
+
+  /* combine both query */
+
+
+async.parallel([getSearchResults, getSearchCount], function(err, results){   
+
+       return  res.json({data: results[0], totalCount: results[1]});
+
+    });
+
+
 }

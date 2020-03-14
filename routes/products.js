@@ -7,5 +7,7 @@ router
 .get('/getproducts', ProductsController.getProducts)
 .post('/setproductstatus', ProductsController.setStatus)
 .get('/getallproducts', ProductsController.getAllProducts)
-.get('/exportcsv', ProductsController.exportproducts);
+.get('/exportcsv', ProductsController.exportproducts)
+.get('/searchproducts', ProductsController.searchProducts)
+;
 module.exports = router;
