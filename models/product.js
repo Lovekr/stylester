@@ -115,7 +115,7 @@ var productSchema = new Schema({
 
 	STATUS: {type:String}
 
-	},{ strict: false });
+	},{ strict: false, timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
     productSchema.plugin(mongoosePaginate);
 

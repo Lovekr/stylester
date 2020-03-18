@@ -6,8 +6,13 @@ router
 .post('/importproducts', ProductsController.postProducts)
 .get('/getproducts', ProductsController.getProducts)
 .post('/setproductstatus', ProductsController.setStatus)
-.get('/getallproducts', ProductsController.getAllProducts)
+.get('/getallenabledproducts', ProductsController.getAllEnabledProducts)
 .get('/exportcsv', ProductsController.exportproducts)
 .get('/searchproducts', ProductsController.searchProducts)
+.get('/websitelist',ProductsController.websiteList)
+.get('/categorylist',ProductsController.categoryList)
+.get('/subcategorylist',ProductsController.subCategoryList)
+.get('/filterproduct',ProductsController.filterProduct)
+.get('/enableddetails',ProductsController.enabledDetails)
 ;
 module.exports = router;

@@ -6,6 +6,8 @@ var async = require('async');
 mongoose.set('useFindAndModify', false);
 const { Parser } = require('json2csv');
 const fs = require('fs');
+var path = require('path');
+
 
 
 
@@ -128,10 +130,10 @@ exports.setStatus = function(req,res,next)
   var value = req.body.value;
   var id = req.body._id;
   //Product.findByIdAndUpdate(_id:id, { $set: { 'STATUS': value }}, { new: true }, { useFindAndModify: false });
-console.log(id);
+
 Product.updateOne(
      {_id: id}, 
-     {'STATUS' : value },
+     {'STATUS' : value, 'updated_at' : new Date()},
      {multi:true}, 
        function(err, numberAffected){ 
          if(err) 
@@ -154,20 +156,43 @@ Product.updateOne(
        });
 }
 
-exports.getAllProducts = function(req,res,next)
+exports.getAllEnabledProducts = function(req,res,next)
 {
-    var productlist = [];
-    const initialTime = Date.now();  
-    let cont = 0;
 
-    const stream = Product.find().lean().cursor();
-    stream.on('data', (data) => { productlist.push(data); });
+    var products = [];
+    var pageNo = parseInt(req.query.pageNo);
+    var size = parseInt(req.query.limit); 
+    var query = {};
+    if (pageNo < 0 || pageNo === 0) {
+        response = { "error": true, "message": "invalid page number, should start with 1" };
+        return res.json(response)
+    }
+    skip = size * (pageNo - 1)
+    limit = size
 
-    stream.on('close', () => {
-        res.send({data:productlist});
-    const totalTime = Date.now() - initialTime;
-    console.log(`Execution ended. Number of elements: ${cont}. Elapsed time: ${(totalTime / 1000)} seconds`);
-    
+    var countEnabledDoc = function(callback){
+          Product.countDocuments({STATUS:'enable'}, function(err, countEnable){
+            if(err){ callback(err, null); }
+            else{
+                   callback(null, countEnable);
+                }
+          });
+    };
+
+    var retrieveQuery = function(callback){
+        Product.find({STATUS:'enable'}).lean().skip(skip).limit(limit).sort({_id: 'asc'})
+            .exec(function(err, doc){
+                            if(err){ callback(err, null); }
+                            else{
+                            callback(null, doc);
+                            }
+                      });
+    };
+
+    async.parallel([retrieveQuery, countEnabledDoc], function(err, results){   
+
+       return  res.json({data: results[0], enableCount:results[1]});
+
     });
 }
 
@@ -240,30 +265,9 @@ exports.exportproducts =  function (req, res, next) {
     }
     else
     {
-      let csv;
-      try {
-        const parser = new Parser(opts);
-        const csv = parser.parse(products);
-        console.log(csv);
-      } catch (err) {console.log("csv");
-        return res.status(500).json({ err });
-      }
+      //return res.status(200).json({ products });
+      return  res.status(200).json({data: products});
 
-      const dateTime = 'sample';
-      const filePath = path.join(__dirname, "..", "public", "files", "csv-" + dateTime + ".csv");
-
-      fs.writeFile(filePath, csv, function (err) {
-        if (err) {
-          return res.json(err).status(500);
-        }
-        else {
-          setTimeout(function () {
-            fs.unlinkSync(filePath); // delete this file after 30 seconds
-          }, 30000)
-          return res.json("/files/csv-" + dateTime + ".csv");
-        }
-      });
-      
     }
 
   });
@@ -292,7 +296,7 @@ exports.searchProducts = function(req,res,next)
     {
       
 
-      Product.find().or([
+      Product.find({STATUS:'enable'}).or([
         { 'PRODUCT_NAME': { $regex: re }},
         { 'CATEGORY': { $regex: re }},
         { 'SUB_CATEGORY': { $regex: re }},
@@ -315,7 +319,7 @@ exports.searchProducts = function(req,res,next)
 
     var getSearchCount = function(callback)
     {
-        Product.countDocuments().or([
+        Product.countDocuments({STATUS:'enable'}).or([
           { 'PRODUCT_NAME': { $regex: re }},
           { 'CATEGORY': { $regex: re }},
           { 'SUB_CATEGORY': { $regex: re }},
@@ -345,5 +349,125 @@ async.parallel([getSearchResults, getSearchCount], function(err, results){
 
     });
 
+
+}
+
+exports.websiteList = function(req,res,next)
+{
+  Product.find().distinct('WEBSITE_NAME', function(error, list) {
+    if (error!=null) {
+      return res.status(500).json({ error });
+    }
+    else
+    {
+      return  res.status(200).json({data: list});
+    }    
+    });
+}
+
+exports.categoryList = function(req,res,next)
+{
+  Product.find().distinct('CATEGORY', function(error, list) {
+     if (error!=null) {
+      return res.status(500).json({ error });
+    }
+    else
+    {
+      return  res.status(200).json({data: list});
+    }    
+    });
+}
+
+exports.subCategoryList = function(req,res,next)
+{
+    Product.find().distinct('SUB_CATEGORY', function(error, list) {
+     if (error!=null) {
+      return res.status(500).json({ error });
+    }
+    else
+    {
+      return  res.status(200).json({data: list});
+    }    
+    });
+}
+
+exports.filterProduct = function(req,res,next)
+{
+  var pageNo = parseInt(req.query.pageNo); 
+
+  var size = parseInt(req.query.limit); 
+
+    if (pageNo < 0 || pageNo === 0) {
+      response = { "error": true, "message": "invalid page number, should start with 1" };
+      return res.json(response)
+  }
+  skip = size * (pageNo - 1);
+  limit = size;
+
+  var query = {}
+
+  var query = {$and:[{GENDER:{$regex: req.query.gender, $options: 'i'}},
+                    {WEBSITE_NAME:{$regex: req.query.website, $options: 'i'}},
+                    {CATEGORY:{$regex: req.query.category, $options: 'i'}},
+                    {SUB_CATEGORY:{$regex: req.query.sub_category, $options: 'i'}}]}
+
+    var query_enabled = {$and:[{GENDER:{$regex: req.query.gender, $options: 'i'}},
+                    {WEBSITE_NAME:{$regex: req.query.website, $options: 'i'}},
+                    {CATEGORY:{$regex: req.query.category, $options: 'i'}},
+                    {SUB_CATEGORY:{$regex: req.query.sub_category, $options: 'i'}},
+                    {STATUS:{$regex: 'enable', $options: 'i'}}]}
+
+  getFilterResults = function(callback)
+  {
+      Product.find(query).lean().skip(skip).limit(limit).sort({_id: 'asc'}).exec(function(error, product) {
+      if(error)
+        { callback(error, null); }
+      else{callback(null, product);}  
+      });
+  }
+
+  getFilterCount = function(callback)
+  {
+     Product.countDocuments(query).lean().exec(function(error, totalCount) {
+      if(error)
+        { callback(error, null); }
+      else{callback(null, totalCount);}  
+      });
+  }
+
+  getFilterCountEnable = function(callback)
+  {
+     Product.countDocuments(query_enabled).lean().exec(function(error, enableCount) {
+      if(error)
+        { callback(error, null); }
+      else{callback(null, enableCount);}  
+      });
+  }
+
+
+async.parallel([getFilterResults, getFilterCount, getFilterCountEnable], function(err, results){   
+       return  res.json({data: results[0], totalCount: results[1], enableCount: results[2]});
+    });
+}
+
+
+exports.enabledDetails = function(req,res,next)
+{
+  Product.aggregate([ 
+        { $match : { STATUS : "enable" } },
+        {
+        $group: {
+        _id: {"SUB_CATEGORY":'$SUB_CATEGORY',"CATEGORY":"$CATEGORY","WEBSITE_NAME":"$WEBSITE_NAME"}, //$region is the column name in collection 
+        count: {$sum: 1}
+        }
+        }
+        ], function (err, result) {
+        if (err) {
+         return res.status(500).json({ err });
+        } else {
+          
+        return res.status(200).json({ result });
+        }
+        });
 
 }
