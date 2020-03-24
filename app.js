@@ -4,6 +4,8 @@ var fileUpload = require('express-fileupload');
 const port = process.env.PORT || 8000;
 var products = require('./routes/products.js');
 var stylepick = require('./routes/stylepick.js');
+var hotdeal = require('./routes/hotdeal.js');
+
 
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose');
@@ -38,6 +40,7 @@ app.get('/', function (req, res) {
 
 app.use('/', products);
 app.use('/', stylepick);
+app.use('/', hotdeal);
 
 app.listen(port, () => {
     console.log("Server listening on port " + port);
