@@ -1,0 +1,7 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, rgba(202, 47, 47, 0), rgb(117, 23, 23));
+    background-size: cover;
+    background-position: center;
+}

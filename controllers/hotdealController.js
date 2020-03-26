@@ -25,35 +25,35 @@ exports.getAllHotDeals = function(req,res,next)
     {
         var hotdeals = function(callback)
         {
-            Stylepick.find().lean().sort({_id: 'asc'}).exec(function(err, stylepicks){
+            Hotdeal.find().lean().sort({_id: 'asc'}).exec(function(err, hotdeals){
                             if(err)
                             { 
                                 callback(err, null);
                             }
                             else
                             {
-                                callback(null, stylepicks);
+                                callback(null, hotdeals);
                             }
                       });
         }
 
 
 
-        var stylepickscount = function(callback)
+        var hotdealscount = function(callback)
         {
-            Stylepick.countDocuments().lean().sort({_id: 'asc'}).exec(function(err, stylepicks_count){
+            Hotdeal.countDocuments().lean().sort({_id: 'asc'}).exec(function(err, hotdeal_count){
                             if(err)
                             { 
                                 callback(err, null);
                             }
                             else
                             {
-                                callback(null, stylepicks_count);
+                                callback(null, hotdeal_count);
                             }
                       });
         }
 
-        async.parallel([stylepicks, stylepickscount], function(err, results){   
+        async.parallel([hotdeals, hotdealscount], function(err, results){   
        return  res.json({data: results[0], totalCount: results[1]});
     });
         
@@ -62,4 +62,47 @@ exports.getAllHotDeals = function(req,res,next)
     {
         return res.status(400).json({ status: 400, message: e.message });
     }
+}
+
+
+exports.setHotDealStatus = function(req,res,next)
+{
+    var value = req.body.value;
+    var id = req.body._id;
+
+    Hotdeal.updateOne(
+     {_id: id}, 
+     {'STATUS' : value, 'updated_at' : new Date()},
+     {multi:true}, 
+       function(err, numberAffected){ 
+         if(err) 
+         {
+           res.status(400).json({ status: 400, message: err.message });
+         }
+         if(numberAffected)
+         {
+            res.status(200).json({ status: 200, message: 'Updated Successfully' });
+         }
+         
+       });
+}
+
+
+exports.exportHotDeals = function(req,res,next)
+{
+    var status = req.query.value; console.log(status);
+    Hotdeal.find({STATUS:status}).lean().sort({_id: 'asc'}).exec(function (err, hotdeals) {
+   
+    if (err!=null) {
+      return res.status(500).json({ err });
+    }
+    else
+    {       
+        console.log(hotdeals);
+      //return res.status(200).json({ products });
+      return  res.status(200).json({data: hotdeals});
+
+    }
+
+  });
 }

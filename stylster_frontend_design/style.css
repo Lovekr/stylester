@@ -1,0 +1,660 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+
+.headingfont
+{
+    font-family: 'Allerta Stencil';
+
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    overflow-x: hidden;
+}
+
+
+/* navbar */
+
+#navbar{
+    background: url(./asset/marble.jpg);
+}
+#navbar .navbar-brand{
+    font-size: 33px;
+    font-weight: 500;
+}
+#navbar i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#navbar .nav-link{
+    color: black;
+    margin:0px 20px 0px 20px;
+    text-decoration: underline;
+    font-weight: 500;
+} 
+
+
+
+.flexIcon{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flexIcon i{
+   
+   width: 30px;
+   padding: 3px  7px;
+   height: 25px;
+}
+
+#navbar input{
+    background: transparent;
+    width: 65%;
+    margin:auto 200px auto 30px;
+     outline: 0;
+    border-width: 0 0 2px;
+    border-color: rgb(54, 53, 53);
+}
+#navbar input:focus {
+    border-color: black
+  }
+  #navbar input::placeholder{
+      color: rgb(102, 99, 99) !important;
+      padding-left: 10px;
+  }
+
+.navbar-manu{
+    display: flex;
+    justify-content: center;
+}
+.navbar-manu a{
+    margin: 10px 50px;
+}
+.navbar-manu a{
+    color: black !important;
+   font-weight: 500;
+}
+.navbar-manu a:hover{
+    text-decoration: underline;
+}
+@media only screen and (min-width: 1000px){
+    .navbar-manu-inside{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .displaynone1000{
+        display: none;
+    }
+    .navbar-manu{
+        display: none;
+       
+    }
+
+    .navbar-manu-inside {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0px 20px 30px;
+        padding: 20px 0px;    
+    }
+
+    .navbar-manu-inside a{
+            margin: 10px 0px;
+            color: black !important;
+            font-weight: 500;
+    }
+
+}
+@media only screen and (max-width: 1024px){
+    #navbar input {
+    width: 50%;
+    }
+    .navbar-manu a {
+        margin: 10px 20px;
+    }
+}
+
+@media only screen and (max-width: 770px){
+    #navbar input {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    #navbar input {
+        width: 100%;
+        margin:auto;
+        margin-top: 15px;
+    }
+}
+
+
+
+/* main header */
+
+#main-header {
+    background-color: black;
+    height: 550px;
+}
+
+#main-header .container{
+    padding: 30px;
+
+}
+#main-header .container .bg-white{
+    background-color: white;
+    padding: 31px 35px;
+    border-radius: 10px;
+    margin: 67px 0px;
+}
+#main-header .stylster{
+    font-size: 28px;
+}
+.flexIcon img{
+
+width: 40px;
+padding-right: 10px;
+}
+#main-header .container .category span{
+    background-color: black;
+    color: white;
+    padding:10px 30px;
+    border-radius: 25px;
+    margin-right: 20px;
+    border: 2px solid black;
+    transition: .5s;
+}
+#main-header .container .category span:hover{
+
+background-color: white;
+color: black;
+
+}
+
+#main-header .container .category span i{
+    margin-left: 15px;
+}
+#main-header .container .btn{
+    margin-top: 46px !important;
+    background-color: black;
+    border: none;
+    transition: .5s;
+
+}
+/* #main-header .container .btn:hover{
+    background-color: rgb(150, 14, 14);
+    
+} */
+#main-header .container input,#main-header .container select{
+    color: white;
+    background-color: black;
+}
+#main-header #inputState option{
+    margin: 20px;
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap
+}
+#main-header .pad0{
+    padding: 0;
+}
+.fa-facebook-square {
+    color: #3b5998;
+  }
+.fa-instagram {
+    color: #B43E8E;
+} 
+.fa-pinterest-square {
+    color: #bd081c;  
+}
+.fa-youtube {
+      color: #FF0000;
+}
+.fa-twitter-square {
+    color: #1da1f2;
+}
+::placeholder {
+    color:white !important;
+}
+/* shoping */
+
+
+#shoping ul{
+    margin: 20px;
+}
+#shoping ul li{
+    list-style: none;
+    padding: 5px 10px 0px ;
+    font-size: 16px;
+
+}
+#shoping img{
+    height: 100%;
+    width: 100%;
+}
+#shoping .height300{
+    padding: 0;
+    height:400px
+}
+#shoping .bgPink{
+    background-color:#FFE9E2;
+}
+#shoping .line{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+#shoping .line200{
+     border: 1.5px solid black; 
+     width: 81px;
+}
+#shoping .btnBlack{
+    border-radius: 35px;
+    background-color: black;
+    color: white;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: 500;
+}
+#shoping .btnBlack:hover{
+    background-color: grey;
+    
+}
+#shoping .bgBlue{
+    background-color: #A3C7BD;
+    margin: 0px !important;
+}
+
+#shoping .pad0{
+padding: 0px;
+}
+#shoping .pgy{
+    background-color: blue;
+}
+.fontsmall {
+    font-size: 15px;
+    font-weight: inherit;
+}
+
+/* card */
+
+#galleryCard{
+    padding:0px 200px ;
+}
+
+#galleryCard  .fleft{
+    float: left;
+    /* line-height: 1 !important; */
+}
+
+#galleryCard  .fright{
+    float: right;
+}
+#galleryCard button{
+padding: 3px 15px;
+border-radius: 0;
+font-size: 13px;
+margin-top:5px;
+}
+#galleryCard .row{
+    margin-top: 50px;
+}
+
+#galleryCard .flex1{
+    display: flex;
+    justify-content:space-between ;
+}
+#galleryCard .hoverText{
+    color: black;
+    height: 60%;
+    width:60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: bisque;
+    opacity: .5;
+    padding: 20px;
+}
+#galleryCard .hoverText .text-center{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#galleryCard .hoverText .text-center{
+    z-index: 99;
+    letter-spacing: 10;
+}
+
+#galleryCard .hoverText .text-center h1{
+    font-size: 50px;
+}
+#galleryCard .hoverText .text-center button:hover{
+    background-color: black;
+    color: white;
+
+}
+.addright{
+    padding-right: 15px;
+}
+#galleryCard img{
+    height: 480px;
+
+}
+.height250:hover .overlay {
+    opacity: 1;
+  }
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+  }
+#galleryCard .bgBlack{
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px 45px;
+}
+.dealsfont {
+    font-size: 25px;
+}
+.owl-dot {
+    display: none !important;
+}
+
+.owl-next span{
+    /* font-size: 50px; */
+    position: absolute;
+ top: 0%;
+    right: 0%;
+    margin-right: -40px;
+   font-size: 50px;
+   line-height: 9;
+    
+}
+.owl-prev span{
+    font-size: 50px;
+    position: absolute;
+    top: 35%;
+    left: 0;
+    margin-left: -40px;
+    
+}
+
+
+#galleryCard .bgBlack .item{
+    height: 500px;
+}
+#galleryCard .Style-pick .flex1{
+padding: 50px 0px !important;
+}
+
+#galleryCard .buttoncolor{
+    background-color: black !important;
+        color: white;
+}
+.bgBlack .inside-title{
+    position: absolute;
+    bottom: 8%;
+    padding: 5px 20px;
+    left: auto;
+    right: auto;
+    background-color:  grey !important;
+    color: white !important;
+}
+
+.bgBlack .inside-title{
+   position: absolute;
+    bottom: 8%;
+ 
+}
+
+/* blog */
+.footertext{
+    color: black !important;
+}
+
+.blog{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.buttoncolor{
+        background-color: black !important;
+        color: white;
+}
+
+.blog .blogPost1{
+    width: 200px;
+    background-color: aqua;
+    margin-bottom:15px;
+    
+}
+.blog .blogPost2{
+    width: 200px;
+    background-color: rgb(32, 73, 73);
+    margin-bottom:15px;
+    
+}
+.blog .blogPost3{
+    width: 200px;
+    background-color: rgb(24, 24, 73);
+    margin-bottom:15px;
+    
+}
+.blog .col-lg-4{
+    /* background-color: fuchsia; */
+    margin-bottom: 12px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.blog .container-fluid{
+    padding: 0;
+}
+.imgBlock img{
+    height: 100px;
+}
+.blog3 .imgBlock{
+    height: 200px !important;
+}
+.blog3 img{
+    height: 200px !important;
+}
+.blog3 p{
+    font-size: 12px;
+    color: gray;
+}
+
+.blog .blog-title{
+    background-color: white;
+    position: absolute;
+    top:40%;
+    height: 70px;
+    width: 140px;
+    padding: 5px;
+}
+.blog3 .colorblue{
+    color: aqua;
+    margin-top: 5px;
+    
+}
+.blog3 p{
+    margin-left: 5px;
+    margin-bottom: 10px;
+    padding-right: 20px;
+}
+.bgBlack .inside-title {
+    position: absolute;
+    left: 15%;
+    bottom: 0%;
+    width: 70%;
+    text-align: center;
+}
+.floatLeft {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20px;
+}
+.floatLeft .blogIcon{
+    padding-right: 10px;
+}
+.blog3{
+    box-shadow: 3px 3px 15px gray;
+}
+
+.styleter-Blog .row{
+    margin-top: 15px !important;
+}
+
+.styleter-Blog .col-md-12{
+    position: relative;
+} 
+.style-blog-title{
+position: absolute;
+bottom: 1%;
+padding: 20px;
+width: 92%;
+color: white;
+
+}
+
+.dealItem p{
+   position: absolute;
+   color: white;
+   bottom: 0%;
+   text-align: center;
+   width: 91%;
+   padding: 10px 5px;
+}
+
+.dealItem p:hover{
+   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0,0,0,1));
+
+}
+.styleter-Blog .col-md-12{
+    margin-bottom: 25px;
+}
+
+#footer .row{
+    padding: 70px;
+
+}
+
+#footer{
+    margin-top: 60px;
+    background-color: rgb(228, 226, 225);
+}
+/* .footer-stylster{
+    line-height: 0;
+} */
+
+#footer ul li{
+    padding-bottom: 10px;
+}
+
+#footer a,#footer h3{
+    color: gray;
+}
+#footer a:hover{
+    color: black;
+    font-weight: 500;
+}
+   
+.rline{
+    border-right: 1px solid gray;
+
+}
+
+#footer .footer-stylster img{
+    width: 60px;
+}
+
+@media only screen and (max-width: 800px){
+    #footer h3{
+        font-size: 20px;
+    }
+    #footer ul li{
+        padding: 5px 0px;
+    }
+}
+
+
+.blog img{
+    height: 200px;
+    width: 100%;
+}
+.blog .wrapper .colorblue{
+    color: aqua;
+}
+
+
+.floatLeft {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20px;
+}
+.floatLeft .blogIcon{
+    padding-right: 10px;
+}
+.floatLeft button{
+    padding: 6px 30px !important;
+}
+.floatLeft button:hover{
+    background-color: gray;
+}
+
+
+.blog-title{
+  position: absolute;
+bottom: 45%;
+background-color: white;
+padding: 20px;  
+}
+
+
+#footer ul{
+    margin: 20px 0px;
+}
+/* .height200:before {
+    background: black;
+    width: 250px;
+    height: 2px;
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    top: auto;
+    margin-top: 95px;
+}
+.height400:after {
+    background: black;
+    width: 100%;
+    height: 2px;
+    content: "";
+    position: absolute;
+    display: block;
+    left: 337px;
+    overflow: hidden;
+    top: auto;
+    margin-top: -78px;
+} */

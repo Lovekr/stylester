@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="./css/owl.carousel.css">
+     <link rel="stylesheet" href="./css//owl.theme.default.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="./css/login.css">
+    <title>STYLSTER</title>
+<!--     <script type="text/javascript">
+    function validate(){
+        var email=document.getElementById("email");
+        var password=document.getElementById("password");
+        if(email.value==""||password.value==""){
+            alert("No blank values allowed");
+            return false;
+        }
+        else
+        {
+            true;
+        }
+    }
+    </script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+     <div class="loginbox">
+            <img src="./asset/login icon svg white-01.svg" class="loginicon">
+         <h1>Login</h1>
+         <form method="POST" id="postcontent">
+             <p>Email</p>
+             <input type="text" name="email" id="email" placeholder="Enter Email" required> 
+             <p>Password</p>
+             <input type="password" name="password" id="password" placeholder="Enter Password" required> 
+             <input type="submit" name=""  value="Login">
+             <a href="#">Forgot your password?</a>
+             <br>
+
+             <a href="http://localhost:8000/auth/facebook"><img src="./asset/icon/facebook_logo.png" style="height: 34px;"></a>
+             <br>
+             <!-- <a href="http://localhost:8000/auth/google"><img src="./asset/icon/google_plus.png" style="height: 34px;"></a> -->
+             
+         </form>
+     </div>
+</body>
+</html>
+
+<script>
+$(document).ready(function() {
+            $("#postcontent").submit(function(e) {console.log("here");
+                var email=document.getElementById("email");
+                var password=document.getElementById("password");
+                if(email.value==""||password.value==""){alert("No blank values allowed");return false;}
+                var auth_data = {"email":email.value, "password":password.value};
+
+                e.preventDefault();
+                $.ajax({
+                    type : "POST",
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    url : "http://localhost:8000/login",
+                    data : JSON.stringify(auth_data),
+                    beforeSend : function() {
+                          // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
+                    },
+                    success : function(response) {
+                        
+                        localStorage.setItem('myMainKey', JSON.stringify(response.data));
+                        window.location.href = "index.html";
+                    }
+                });
+                e.preventDefault();
+            });
+
+        });
+</script>

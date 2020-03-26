@@ -1,0 +1,455 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+html *
+{
+    font-family: 'Allerta Stencil';
+
+}
+body{
+    overflow-x: hidden;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/* navbar */
+
+
+
+#navbar{
+    background-color: white !important;
+}
+#navbar .navbar-brand{
+    font-size: 40px;
+    font-weight: 500;
+}
+#navbar i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#navbar .nav-link{
+    color: black;
+    margin:0px 20px 0px 20px;
+    text-decoration: underline;
+    font-weight: 500;
+} 
+
+.flexIcon{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flexIcon i{
+   
+    width: 30px;
+    padding: 3px  7px;
+    height: 25px;
+ }
+ .flexIcon img{
+
+    width: 40px;
+    padding-right: 10px;
+    }
+    #navbar input{
+        width: 65%;
+        margin:auto 200px auto 30px;
+         outline: 0;
+        border-width: 0 0 2px;
+        border-color: rgb(54, 53, 53);
+    }
+.buttonhover{
+    background-color:  grey; 
+    color: white; 
+  }
+  #galleryCard{
+    padding: 3px 15px;
+    border-radius: 0;
+    font-size: 12px;
+    margin-top: 5px;
+}
+  .buttonhover:hover {
+    background-color: black !important;
+    color: white;
+  }  
+
+#navbar input:focus {
+    border-color: black
+  }
+  #navbar input::placeholder{
+      padding-left: 10px;
+  }
+
+.navbar-manu{
+    display: flex;
+    justify-content: center;
+}
+.navbar-manu a{
+    margin: 10px 50px;
+}
+.navbar-manu a{
+    color: black !important;
+   font-weight: 500;
+}
+.navbar-manu a:hover{
+    text-decoration: underline;
+}
+@media only screen and (min-width: 1000px){
+    .navbar-manu-inside{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .displaynone1000{
+        display: none;
+    }
+    .navbar-manu{
+        display: none;
+       
+    }
+
+    .navbar-manu-inside {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0px 20px 30px;
+        padding: 20px 0px;    
+    }
+
+    .navbar-manu-inside a{
+            margin: 10px 0px;
+            color: black !important;
+            font-weight: 500;
+    }
+
+}
+@media only screen and (max-width: 1024px){
+    #navbar input {
+    width: 50%;
+    }
+    .navbar-manu a {
+        margin: 10px 20px;
+    }
+}
+
+@media only screen and (max-width: 770px){
+    #navbar input {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    #navbar input {
+        width: 100%;
+        margin:auto;
+        margin-top: 15px;
+    }
+}
+
+
+
+
+
+
+
+/* dealCard */
+
+.blog img{
+    height: 200px;
+    width: 100%;
+}
+.blog .wrapper .colorblue{
+    color: aqua;
+}
+
+.blogNetworkTopInput{
+    border:none;
+    border-bottom: 2px solid gray;
+    width: 300px;
+
+}
+.blogNetworkTopInput:focus{
+    outline: none;
+}
+/* .firstBG ::before{
+   content: "";
+   display: block;
+   height: 100px;
+   width: 100px;
+   color: red;position: absolute;
+   
+}.firstBG{
+    position: relative;;
+} */
+
+.blog .row .index10{
+    z-index: 10;
+}
+
+.blog .backpick{
+    height: 500px;
+    background-color: bisque;
+    position: absolute;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.floatLeft {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20px;
+}
+.floatLeft .blogIcon{
+    padding-right: 10px;
+}
+.floatLeft button{
+    padding: 6px 30px !important;
+}
+.floatLeft button:hover{
+    background-color: gray;
+}
+
+
+.blog-title{
+  position: absolute;
+bottom: 45%;
+background-color: white;
+padding: 20px;  
+}
+
+.blog3{
+    box-shadow: 2px 2px 10px gray;
+}
+
+
+.blog .button-center{
+   width: 100%;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+}
+.blog button,.img-more button{
+    background-color: grey;
+   color: black;
+}
+.blog button:hover,.img-more button:hover{
+    border: 1px solid black;
+    background-color: black;
+    color:white;
+}
+
+.border-dark{
+    border: 3px solid black;
+}
+.follow-details{
+    background-color: #FEEAE3;
+    width: 100%;
+}
+
+.follow-details button{
+    background: transparent;
+    padding: 3px 12px;
+    margin-left: 50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.flex1{
+    display: flex;
+    justify-content: center;
+}
+
+.flex2{
+
+    display: flex;
+    justify-content: space-around;
+
+}
+
+follow-details{
+    padding: 100px ;
+}
+.follower-details ul{
+    list-style: none;
+    font-size: 20px;
+ line-height: 35px;   
+}
+
+.img-gallery .img-more{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
+.gallery-header{
+    display: flex;
+    justify-content: center;
+    margin: 30px 0px;
+    border-top:2px solid black ;
+    border-bottom:2px solid black ;
+}
+
+.gallery-header p{
+    padding: 6px 15px;
+   
+}
+.gallery-header p:hover{
+    background-color: rgb(219, 216, 216);
+}
+.follower-details ul li{
+font-weight: 500;
+}
+.margindown {
+    margin-top: 70px;
+}
+.fa-facebook-square {
+    color: #3b5998;
+  }
+.fa-instagram {
+    color: #B43E8E;
+} 
+.fa-pinterest-square {
+    color: #bd081c;  
+}
+.fa-youtube {
+    color: #FF0000;
+}
+.fa-twitter-square {
+  color: #1da1f2;
+}
+::placeholder {
+    color:white !important;
+}
+.flex3{
+    display: flex;
+    justify-content:space-between;
+}
+
+.flex3 button{
+    border: 2px solid black;
+    background: transparent;
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.flex3 button:hover{
+    color: white;
+    background-color: black;
+}
+
+#footer .row {
+    margin-right: 0;
+}
+
+
+.img-gallery img{
+    width: 100%;
+}
+
+/* footer */
+#footer{
+    margin: 0;
+    padding: 0;
+}
+
+
+#footer .row{
+    padding: 40px;
+
+}
+
+#footer{
+    margin-top: 60px;
+    background-color: rgb(228, 226, 225);
+}
+
+#footer ul {
+    list-style: none;
+}
+#footer a,#footer h3{
+    color: gray;
+}
+#footer a:hover{
+    color: black;
+    font-weight: 500;
+}
+#footer h3{
+    font-size: 20px;
+}
+   
+.rline{
+    border-right: 1px solid gray;
+
+}
+
+#footer ul li{
+    padding: 10px;
+}
+#footer h3{
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 800px){
+   
+    #footer ul li {
+        padding: 5px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .follow-details ul li{
+        font-size: 18px;
+    }
+    .follow-details {
+        margin-top: 20px;
+    }
+    
+    .rline{
+        border-right:none;
+      margin: 20px 0px;
+    }
+  
+    .res800{
+        height: 250px !important;
+    }
+    .style-blog-title{
+        bottom: 5%;
+    }
+    
+}
+.height200:before{
+    background: #DAD6D6;
+    width: 250px;
+    height: 2px;
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    top: auto;
+    margin-top: 95px;
+}
+.height400:after{
+   background: #DAD6D6;
+    width: 250px;
+    height: 2px;
+    content: "";
+    position: absolute;
+    display: block;
+    left: 357px;
+    top: auto;
+    margin-top: -309px;
+}

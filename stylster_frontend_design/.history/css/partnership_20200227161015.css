@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+html *
+{
+    font-family: 'Allerta Stencil';
+
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/* navbar */
+
+
+
+#navbar{
+    background-color: rgb(218, 214, 214) !important;
+}
+#navbar .navbar-brand{
+    font-size: 40px;
+    font-weight: 500;
+}
+#navbar i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#navbar{
+    z-index: 9999;
+}
+#navbar .nav-link{
+    color: black;
+    margin:0px 20px 0px 20px;
+    text-decoration: underline;
+    font-weight: 500;
+} 
+
+
+
+.flexIcon{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flexIcon i{
+   
+   width: 30px;
+   padding: 3px  7px;
+   height: 25px;
+}
+
+#navbar input{
+    width: 65%;
+    margin:auto 100px;
+     outline: 0;
+    border-width: 0 0 2px;
+    border-color: rgb(179, 174, 174);
+    background-color: rgb(218, 214, 214) !important;
+
+}
+#navbar input:focus {
+    border-color: black
+  }
+  #navbar input::placeholder{
+      padding-left: 10px;
+  }
+
+.navbar-manu{
+    display: flex;
+    justify-content: center;
+}
+.navbar-manu a{
+    margin: 10px 50px;
+}
+.navbar-manu a{
+    color: black !important;
+   font-weight: 500;
+}
+.navbar-manu a:hover{
+    text-decoration: underline;
+}
+@media only screen and (min-width: 1000px){
+    .navbar-manu-inside{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .displaynone1000{
+        display: none;
+    }
+    .navbar-manu{
+        display: none;
+       
+    }
+
+    .navbar-manu-inside {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0px 20px 30px;
+        padding: 20px 0px;    
+    }
+
+    .navbar-manu-inside a{
+            margin: 10px 0px;
+            color: black !important;
+            font-weight: 500;
+    }
+
+}
+@media only screen and (max-width: 1024px){
+    #navbar input {
+    width: 50%;
+    }
+    .navbar-manu a {
+        margin: 10px 20px;
+    }
+}
+
+@media only screen and (max-width: 770px){
+    #navbar input {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    #navbar input {
+        width: 100%;
+        margin:auto;
+        margin-top: 15px;
+    }
+}
+
+
+
+
+
+
+
+.blogdisplay{
+    background: url('https://images.unsplash.com/photo-1483884105135-c06ea81a7a80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height:90vh ;
+    
+}
+
+.floatImg img {
+    margin-top: 40px;
+}
+    
+    
+.blogDisplayHeader{
+    color: rgb(233, 190, 206);
+    width: 80%;
+    padding: 50px 20px 30px 10px;
+}
+.blogDisplayHeader h1{
+    font-size: 60px;
+  padding-bottom: 30px;
+}
+.blogDisplayHeader h4{
+    line-height: 40px;
+    color: white;
+}
+.blogDisplayHeader  .btn{
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 25px;
+  margin-top: 30px;
+  float: right;
+  font-weight: 500;
+}
+
+.blogDisplayHeader .btn:hover {
+    background: rgb(255, 255, 255);
+    color: black;
+    font-weight: 500;
+}
+.floatImg{
+    position: absolute;
+    z-index: 99;
+    right: 5%;
+    top: 100px;
+    }
+
+.floatImg img{
+    height: 500px !important;
+
+}
+@media only screen and (max-width: 800px){
+    .floatImg img {
+        height: 400px !important;
+    }
+  .blogDisplayHeader h1 {
+      font-size: 40px;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+.benefit .benefit-title h3{
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+}
+.network .container{
+background-color: black;
+color:white;}
+
+.network h1{
+  color: rgb(255, 176, 205);
+}
+.bg-pink{
+  background-color:rgb(245, 188, 210) ;
+  padding: 5px;
+}
+
+.network  .btn{
+ border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 25px;
+}
+
+.network .btn:hover {
+    background: rgb(255, 255, 255);
+    color: black;
+    font-weight: 500;
+} 
+
+.bgOuter{
+    width: 110%; 
+}
+.bgOuterl{
+  margin-left: -60px;
+  padding-left: 60px;
+}
+
+.blogDisplayHeader h4 {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+.connect-header p{
+    font-size: 50px;
+    line-height: 50px;
+  
+}
+
+.connect .row .pad50{
+     padding: 20px 100px;
+}
+
+.connect .row .pad50 h3{
+    border-bottom: 2px solid palevioletred;
+}
+
+
+.float-bottom{
+    position: absolute;
+    bottom: 0px;
+}
+
+
+.bgblack{
+    background-color: black;
+    color: white;
+}
+
+.bgColor{
+    background-color: antiquewhite;
+    max-width: 100%;
+    padding-left: 50px;
+}
+.bgColor h1{
+    font-size: 60px;
+
+}
+.paddingLeft{
+    padding-left: 100px;
+}
+
+.button12 .btn{
+    background-color: black;
+    color: white;
+    padding: 10px 35px;
+    font-weight: 500;
+    font-size: 25px;
+}
+.button12 .btn:hover{
+    background-color: gray;
+    color: black;
+}
+
+#footer {
+    margin-top: 0px !important;
+}
+
+
+
+#footer .row{
+    padding: 70px;
+
+}
+
+#footer{
+    margin-top: 60px;
+    background-color: rgb(228, 226, 225);
+}
+/* .footer-stylster{
+    line-height: 0;
+} */
+#footer ul {
+    list-style: none;
+}
+#footer a,#footer h3{
+    color: gray;
+}
+#footer a:hover{
+    color: black;
+    font-weight: 500;
+}
+   
+.rline{
+    border-right: 1px solid gray;
+
+}
+
+#footer ul li{
+    padding: 10px;
+}
+#footer h3{
+    margin-bottom: 30px;
+}
+
+
+@media only screen and (min-width: 1024px){
+    .blogdisplay {
+       
+        height: 100vh;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .blogDisplayHeader {
+      
+        padding: 150px 80px 30px 10px;
+    }
+    .blogdisplay {
+       
+        height: 80vh;
+    }
+    .blogDisplayHeader .btn {
+       
+        margin-top: 100px;
+    }
+    .bgColor h1 {
+        font-size: 50px;
+    }
+    .connect .row .pad50 {
+        padding: 20px 50px;
+    }
+    #footer ul li {
+        padding: 0px;
+    }
+   
+
+}
+
+@media only screen and (max-width: 800px){
+
+    .floatImg img {
+        margin-top: 0px; 
+   }
+ #footer .row {
+        padding: 20px;
+    }
+    .bgColor h1 {
+        font-size: 40px;
+    }
+    #footer h3{
+        font-size: 20px !important;
+    }
+    .connect-header{
+        padding: 0 !important;
+    }
+   
+}
+@media only screen and (max-width: 450px){
+
+    .floatImg img {
+        display: none;
+    }
+    .blogDisplayHeader {
+        padding: 50px 0px 30px 10px;
+    }
+    .connect-header p {
+        font-size: 40px;
+        line-height: 40px;
+    }
+    .connect img{
+        display: none;
+    }
+    .bgColor h1 {
+        font-size: 20px;
+    }.bgColor {
+        padding-left: 30px;
+    }
+    .paddingLeft {
+        padding-left: 50px;
+    }
+    .footer {
+        border: none;
+    }
+    .rline {
+        border-right: none;
+    }
+    .blogDisplayHeader .btn {
+        margin-top: 30px;
+    }
+    .blogdisplay {  
+        height: 90vh !important;
+    }
+}
+
+@media only screen and (max-width: 360px){
+  
+    .blogDisplayHeader h1 {
+    font-size: 30px;
+    line-height: 35px;
+    }
+    
+}
+
+
+.displayImage{
+    position: relative;
+}
+
+@media only screen and (min-width: 1100px){
+    .blogdisplay {
+       
+        height: 120vh;
+    }
+}
+
+.backgroundimg {
+    background: url("../asset/brown\ leaf-01.svg");
+    background-size: cover;
+    width: 100%;
+}
+.textfont {
+    font-size: 55px;
+}

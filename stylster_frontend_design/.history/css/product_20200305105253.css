@@ -1,0 +1,358 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3,h4,h5,h6,p{
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/* navbar */
+
+
+
+#navbar{
+    background-color: white !important;
+}
+#navbar .navbar-brand{
+    font-size: 40px;
+    font-weight: 500;
+}
+#navbar i{
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#navbar .nav-link{
+    color: black;
+    margin:0px 20px 0px 20px;
+    text-decoration: underline;
+    font-weight: 500;
+} 
+.tbutton button{
+
+}
+
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+
+.flexIcon{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flexIcon i{
+   
+   width: 30px;
+   padding: 3px  7px;
+   height: 25px;
+}
+
+#navbar input{
+    width: 65%;
+    margin:auto 200px auto 30px;
+     outline: 0;
+    border-width: 0 0 2px;
+    border-color: rgb(54, 53, 53);
+}
+::placeholder {
+    color:white !important;
+}
+
+  #navbar input:focus {
+    border-color: black
+  }
+  #navbar input::placeholder{
+    color: rgb(102, 99, 99) !important;
+    padding-left: 10px;
+}
+.navbar-manu{
+    display: flex;
+    justify-content: center;
+}
+.navbar-manu a{
+    margin: 10px 50px;
+}
+.navbar-manu a{
+    color: black !important;
+   font-weight: 500;
+}
+.navbar-manu a:hover{
+    text-decoration: underline;
+}
+.flexIcon{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.flexIcon i{
+   
+    width: 30px;
+    padding: 3px  7px;
+    height: 25px;
+ }
+.fa-facebook-square {
+    color: #3b5998;
+  }
+.fa-instagram {
+    color: #B43E8E;
+} 
+.fa-pinterest-square {
+    color: #bd081c;  
+}
+.fa-twitter-square {
+    color: #1da1f2;
+  }
+.fa-youtube {
+      color: #FF0000;
+}
+@media only screen and (min-width: 1000px){
+    .navbar-manu-inside{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .displaynone1000{
+        display: none;
+    }
+    .navbar-manu{
+        display: none;
+       
+    }
+
+    .navbar-manu-inside {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0px 20px 30px;
+        padding: 20px 0px;    
+    }
+
+    .navbar-manu-inside a{
+            margin: 10px 0px;
+            color: black !important;
+            font-weight: 500;
+    }
+
+}
+@media only screen and (max-width: 1024px){
+    #navbar input {
+    width: 50%;
+    }
+    .navbar-manu a {
+        margin: 10px 20px;
+    }
+}
+
+@media only screen and (max-width: 770px){
+    #navbar input {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 450px){
+    #navbar input {
+        width: 100%;
+        margin:auto;
+        margin-top: 15px;
+    }
+}
+
+
+
+
+
+.product-Page .heart-icon{
+    position: absolute;
+    right: 8%;
+    top: 5%;
+    width: 25px;
+    height: 25px;
+}
+
+
+
+
+
+
+
+
+
+  /*----------------------   */
+
+   ul li{
+ 
+    padding-left: 30px !important; 
+}
+
+
+   .listItem li{
+       padding: 3px 0px;
+   }
+
+.checkSale{
+   margin: 8px 0px;
+}
+
+.product{
+    height: 500px;
+    overflow: hidden;
+}
+.product img{
+    height: 80%;
+    width: 100%;
+}
+.product .bold{
+    font-weight: bold;
+}
+.product .line-through{
+    text-decoration: line-through;
+}
+.red{
+    color: tomato;
+}
+
+.VIEW{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 30px;
+}
+
+.VIEW button:hover{
+    border: 1px solid black;
+}
+
+.padlf10{
+    padding-left: 8px !important;
+}
+
+.index10{
+    z-index: 100;
+}
+#inputState option:hover{
+    background: black !important;
+    color: white !important;
+}
+select option:hover{
+    background: black !important;
+    color: white !important;
+} 
+.line13{
+    border-bottom: 2px solid gainsboro;
+    width: 500px;
+    position: absolute;
+   left: -18%;
+    bottom: 15%;
+}
+.line12{
+    border-bottom: 2px solid gainsboro;
+    width: 500px;
+   position: absolute;
+   right: 1%;
+   top: 15%;
+}
+@media only screen and (max-width: 800px){
+    .line12{
+        width: 300px;
+       top: 18%;
+    }
+}
+@media only screen and (max-width: 500px){
+    .line12,.line13{
+        display: none;
+    }
+}
+
+
+
+
+/* footer */
+
+
+#footer .row{
+    padding: 70px;
+
+}
+
+#footer{
+    margin-top: 60px;
+    background-color: rgb(228, 226, 225);
+}
+/* .footer-stylster{
+    line-height: 0;
+} */
+#footer ul {
+    list-style: none;
+}
+#footer a,#footer h3{
+    color: gray;
+}
+#footer a:hover{
+    color: black;
+    font-weight: 500;
+}
+   
+.rline{
+    border-right: 1px solid gray;
+
+}
+
+#footer ul li{
+    padding-bottom: 10px;
+}
+#footer h3{
+    margin-bottom: 30px;
+}
+
+   /*accessories  */
+
+
+
+
+@media only screen and (max-width: 1024px){
+    .product {
+        height: 380px;}
+        h3 {
+            font-size: 18px;
+        }
+}
+
+@media only screen and (max-width: 770px){
+    .product {
+    height: 300px;
+    }
+    .product-Page{
+        padding: 0px !important;
+        
+    }
+    #footer .row {
+        padding: 30px;
+    }
+    .displaynone1000{
+        display: none;
+    }
+
+}
+
+@media only screen and (max-width: 420px){
+    .product {
+        height: 500px;
+    }
+    h3 {
+        font-size: 24px;
+    }
+    .rline{
+        border: none;
+    }
+   
+    
+   
+}
+
+.toggal-item{
+    color: black;
+}
+.toggal-item:hover{
+    text-decoration: none;
+}
