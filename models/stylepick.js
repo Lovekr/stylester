@@ -8,6 +8,7 @@ var stylepickSchema = new Schema({
     description:{type:String},
     image_title:{type:String},
     price:{type:String},
+    img: { image: Buffer, contentType: String,imagepath:String},
     producturl:{type:Array}
 },{strict: false,timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 

@@ -11,18 +11,18 @@ var path = require('path');
 
 
 
-exports.postProducts = function (req, res) {
-	if (!req.files)
+exports.postProducts = function (req, res) { 
+	if (!req.file)
 		return res.status(400).send('No files were uploaded.');
 	
-	var productFile = req.files.file;
+	var productFile = req.file.path;
 
 	var products = [];
 
   //console.log(productFile);
 		
 	csv
-	 .fromString(productFile.data, {
+	 .fromPath(productFile, {
 		 headers: true,
 		 ignoreEmpty: true
 	 })

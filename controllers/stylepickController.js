@@ -3,11 +3,30 @@ require('../models/stylepick.js');
 var Stylepick  = mongoose.model('Stylepick');
 mongoose.set('useFindAndModify', false);
 var async = require('async');
+const fs = require('fs-extra');
+
 
 exports.postStylepick = function (req,res,next) 
 {
     try {
-        var stylepickData = new Stylepick(req.body);
+        var img = fs.readFileSync(req.file.path);
+        var encode_image = img.toString('base64');
+        // Define a JSONobject for the image attributes for saving to database
+        
+        var finalImg = {
+            image:  new Buffer.from(encode_image, 'base64'),
+            contentType: req.file.mimetype,
+            imagepath:req.file.path      
+        };
+
+        var stylepickData = new Stylepick({
+            title:req.body.title,
+            sub_title:req.body.sub_title,
+            description:req.body.description,
+            image_title:req.body.image_title,
+            price:req.body.price,
+            img: finalImg,
+            producturl:req.body.producturl.split(",")});
 
         stylepickData.save()
             .then()

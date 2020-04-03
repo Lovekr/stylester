@@ -1,13 +1,35 @@
 var mongoose = require('mongoose');
 require('../models/hotdeal.js');
 var Hotdeal  = mongoose.model('Hotdeal');
+const fs = require('fs-extra');
 mongoose.set('useFindAndModify', false);
 var async = require('async');
 
+
+
+
 exports.postHotDeal = function (req,res,next) 
 {
+	var img = fs.readFileSync(req.file.path);
+  var encode_image = img.toString('base64');
+ // Define a JSONobject for the image attributes for saving to database
+ 
+  var finalImg = {
+      image:  new Buffer.from(encode_image, 'base64'),
+      contentType: req.file.mimetype,
+      imagepath:req.file.path      
+   };
+
+
     try {
-        var hotdealData = new Hotdeal(req.body);
+        var hotdealData = new Hotdeal({
+            title:req.body.title,
+            sub_title:req.body.sub_title,
+            description:req.body.description,
+            image_title:req.body.image_title,
+            discount_percentage:req.body.discount_percentage,
+            img: finalImg,
+            producturl:req.body.producturl.split(",")});
 
         hotdealData.save()
             .then()

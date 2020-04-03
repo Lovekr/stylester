@@ -3,11 +3,21 @@ var router = express.Router();
 var passportFacebook = require('../auth/facebook.js');
 var passportGoogle = require('../auth/google.js');
 
-router.get('/facebook', passportFacebook.authenticate('facebook'));
+router.get('/login', function(req, res, next) {
+  res.redirect('/login', { title: 'Please Sign In with:' });
+});
+/* LOGOUT ROUTER */
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/login');
+});
+router.get('/facebook', passportFacebook.authenticate('facebook',{ scope : ['email'] }),function(req, res){
+});
 
-router.get('/facebook/callback', passportFacebook.authenticate('facebook'),
+router.get('/facebook/callback', passportFacebook.authenticate('facebook',{ failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
+  res.redirect('/index.html');
    res.status(200);
   });
 

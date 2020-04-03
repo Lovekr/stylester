@@ -8,9 +8,11 @@ var hotdealSchema = new Schema({
     description:{type:String},
     image_title:{type:String},
     discount_percentage:{type:String},
+    img: { image: Buffer, contentType: String,imagepath:String},
     producturl:{type:Array}
 },{strict: false,timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
+
 var Hotdeal = mongoose.model('Hotdeal', hotdealSchema);
 
-module.exports = Hotdeal;
+module.exports = {Hotdeal:Hotdeal};

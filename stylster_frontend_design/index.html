@@ -82,7 +82,7 @@
                             </div>
                             <div class="form-group mt-3 fontsmall">
                                 <label for="exampleInputEmail1 ">Search</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="e.g. T-shirt,Top,...">
+                                <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="e.g. T-shirt,Top,...">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 fontsmall">
@@ -483,20 +483,23 @@
 <script>
     $(document).ready(function() {
         var data = localStorage.getItem('myMainKey');
-        var stored_data = JSON.parse(data);
-        if (!data) 
+        if(data)
         {
-            localStorage.removeItem('myMainKey');
-            window.location.href = "index.html";
-        }
-        else
-        {
-            console.log(stored_data);
-            var json_data;
+            var stored_data = JSON.parse(data);
+            if (!data) 
+            {
+                localStorage.removeItem('myMainKey');
+                window.location.href = "index.html";
+            }
+            else
+            {
+                console.log(stored_data);
+                var json_data;
 
-            json_data = '<span>'+stored_data.name+'</span>';
+                json_data = '<span>'+stored_data.name+'</span>';
 
-            $(json_data).appendTo('#demo-content');
+                $(json_data).appendTo('#demo-content');
+            }
         }
     });
 </script>

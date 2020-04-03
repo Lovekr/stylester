@@ -1,9 +1,22 @@
 var express = require("express");
 var router = express.Router();
+const multer = require('multer');
+const fs = require('fs-extra');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
 
 var ProductsController = require('../controllers/productsController.js')
 router
-.post('/importproducts', ProductsController.postProducts)
+.post('/importproducts', upload.single('myFile'), ProductsController.postProducts)
 .get('/getproducts', ProductsController.getProducts)
 .post('/setproductstatus', ProductsController.setStatus)
 .get('/getallenabledproducts', ProductsController.getAllEnabledProducts)
