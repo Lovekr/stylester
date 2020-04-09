@@ -122,3 +122,26 @@ exports.exportStylepicks = function(req,res,next)
 
   });
 }
+
+exports.getEnableStylepicks = function(req,res,next)
+{
+    try {
+        // console.log("hello");
+      
+            Stylepick.find({'STATUS' : 'enable'}).lean().limit(4).sort({_id: 'asc'}).exec(function(err, stylepicks){
+            if(err)
+            { 
+                return res.status(500).json({ err });
+            }
+            else
+            {
+               
+                return  res.status(200).json({data: stylepicks});
+            }
+            });
+        
+    }
+     catch (e) {
+         return res.status(400).json({ status: 400, message: e.message });
+    }
+}

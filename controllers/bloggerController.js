@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 require('../models/blogger.js');
 require('../models/token.js');
 var Blogger  = mongoose.model('Blogger');
+var RequestBlogger = mongoose.model('RequestBlogger');
 var Token  = mongoose.model('Token');
 mongoose.set('useFindAndModify', false);
 var async = require('async');
@@ -155,6 +156,134 @@ exports.confirmationPost = async (req, res, next) =>
     }
 };
 
+exports.requestBlogger = async (req,res,next)=>
+{
+    try 
+    {
+        const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
+
+      if (!errors.isEmpty()) {
+        res.status(422).json({ errors: errors.array() });
+        return;
+      }
+
+      const { name, username, email, phone, facebookprofile, facebooklikes, twitterprofile, twitterlikes, instagramprofile, instagramlikes, pinterestprofile, pinterestlikes, location } = req.body
+
+      await RequestBlogger.findOne({ email : email}, function (err, blogger)
+      {
+          // Make sure user doesn't already exist
+            if (blogger) return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
+            
+            var status = 'pending';
+            const newRequesBlogger = RequestBlogger.create({name, username, email, phone, facebookprofile, facebooklikes, twitterprofile, twitterlikes, instagramprofile, instagramlikes, pinterestprofile, pinterestlikes, location, status},(err,data)=>{
+                if(err)
+                {
+                    return res.status(500).send({ msg: err.message });
+                }
+
+                return res.status(200).send('Blogger request accepted.');
+            });
+      });
+
+    } catch (error) 
+    {
+        
+    }
+};
+
+exports.getBlogger = async (req,res,next)=>{
+     try
+    {
+        var bloggers = function(callback)
+        {
+            RequestBlogger.find().lean().sort({_id: 'asc'}).exec(function(err, bloggers){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, bloggers);
+                            }
+                      });
+        }
+
+
+
+        var blogger_count = function(callback)
+        {
+            RequestBlogger.countDocuments().lean().sort({_id: 'asc'}).exec(function(err, blogger_count){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, blogger_count);
+                            }
+                      });
+        }
+
+        async.parallel([bloggers, blogger_count], function(err, results){   
+       return  res.json({data: results[0], totalCount: results[1]});
+    });
+        
+    }
+    catch(e)
+    {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+
+exports.getBloggerId = async (req,res,next)=>
+{
+    try 
+    {
+        var id = req.params.id;
+
+        await RequestBlogger.findById(id).lean(1).sort({_id: 'asc'}).exec(function(err, blogger){
+            if(err)
+            { 
+                return res.status(500).send({ msg: err.message });
+            }
+            else
+            {
+               return res.status(200).send({data:blogger});
+            }
+        });
+        
+    } catch (e) 
+    {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+exports.setBloggerStatus = async(req,res,next)=>
+{
+    var status = req.body.status;
+    var id = req.body._id;
+    var reason = req.body.reason;
+  //Product.findByIdAndUpdate(_id:id, { $set: { 'STATUS': value }}, { new: true }, { useFindAndModify: false });
+
+    await RequestBlogger.updateOne(
+     {_id: id}, 
+     {'status' : status, 'reject_reason' : reason, 'updated_at' : new Date()},
+     {multi:true}, 
+       function(err, numberAffected){ 
+         if(err) 
+         {
+           res.status(400).json({ status: 400, message: err.message });
+         }
+         if(numberAffected)
+         {
+    
+            res.status(200).json({ status: 200, message: 'Updated Successfully' });
+         }
+         
+       });
+}
+
 
 exports.validate = (method) => {
   switch (method) {
@@ -167,11 +296,19 @@ exports.validate = (method) => {
         body('password','Password must be at least 6 characters long').isLength({ min: 6 })
        ]   
     }
-        case 'loginBlogger': {
+    case 'loginBlogger': {
      return [ 
         body('email', 'Email is not empty').notEmpty(),
         body('email', 'Email is not valid').exists().isEmail(),
         body('password','Password must be at least 6 characters long').isLength({ min: 6 })
+       ]   
+    }
+    case 'requestBlogger': {
+     return [ 
+        body('name', 'name is not empty').notEmpty(),
+        body('username', 'username is not empty').notEmpty(),
+        body('email', 'Email is not valid').exists().isEmail(),
+        body('phone','phone is not empty').notEmpty()
        ]   
     }
   }
@@ -187,3 +324,4 @@ const getHashedPassword = (password) => {
 const generateAuthToken = () => {
     return crypto.randomBytes(30).toString('hex');
 }
+

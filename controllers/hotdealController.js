@@ -128,3 +128,26 @@ exports.exportHotDeals = function(req,res,next)
 
   });
 }
+
+exports.getEnableHotDeals = function(req,res,next)
+{
+    try {
+        // console.log("hello");
+      
+            Hotdeal.find({'STATUS' : 'enable'}).lean().limit(3).sort({_id: 'asc'}).exec(function(err, hotdeals){
+            if(err)
+            { 
+                return res.status(500).json({ err });
+            }
+            else
+            {
+               
+                return  res.status(200).json({data: hotdeals});
+            }
+            });
+        
+    }
+     catch (e) {
+         return res.status(400).json({ status: 400, message: e.message });
+    }
+}

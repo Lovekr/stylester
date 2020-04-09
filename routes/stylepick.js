@@ -19,6 +19,7 @@ router
 .post('/create_stylepick', upload.single('myFile'), StylepickController.postStylepick)
 .get('/get_all_stylepicks', StylepickController.getAllStylePicks)
 .post('/update_stylepick_status', StylepickController.setStylepickStatus)
-.get('/export_stylepicks', StylepickController.exportStylepicks);
+.get('/export_stylepicks', StylepickController.exportStylepicks)
+.get('/get_enable_stylepicks', StylepickController.getEnableStylepicks);
 
 module.exports = router;

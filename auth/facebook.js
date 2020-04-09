@@ -21,12 +21,12 @@ passport.use(new FacebookStrategy({
     clientSecret: "3204e537fbf0f8670ef60765311faff9",
     callbackURL: "http://localhost:8000/auth/facebook/callback"
   },
-  function(accessToken, refreshToken, profile, done) { 
-     //console.log(profile);
+  function(accessToken, refreshToken, profile, done) {      
     FacebookUser.findOrCreate({name: profile.displayName}, {name: profile.displayName,userid: profile.id}, function(err, user) {
       if (err) { return done(err); }
-     
-      done(null, user);
+
+
+      return done(null, user);      
     });
   }
 ));

@@ -24,6 +24,10 @@
         </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <input type="text" placeholder="Search:(Eg...)">
+              <form action="request_blogger.html" method="get">
+                <button class="btn btn-primary custom-button">Blogger</button>
+                </form>
+              
               <div class="navbar-manu-inside">
                 <a href="#">MEN</a>
                 <a href="#">WOMEN</a>
@@ -42,6 +46,7 @@
                   <div class="flexIcon">
                       <img src="./asset/nav icon/navHeart.png">
                       <img src="./asset/nav icon/navUser.png">
+                      <button id="logout">Logout</button>
                     <!-- <i class="fa fa-heart border border-dark"></i>
                     <i class="fa fa-user border border-dark"></i> -->
                   </div>
@@ -175,54 +180,9 @@
                     </div>
                 </div>
                 <div class="row mt-5 height200">
-                    <div class="col-md-12 col-lg-4">
-                        <div class="height250">
-                            <img class="img-fluid" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <div class="overlay"></div>
-                            <div class=" hoverText">
-                                <div class="text-center">
-                                    <div>
-                                        <h4 class="dealsfont">SUMMER</h4>
-                                        <h1>SALE</h1>
-                                        <h5>UP TO 40% OFF</h5>
-                                        <button class="my-3 buttoncolor">SHOP NOW</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4">
-                        <div class="height250">
-                            <img class="img-fluid" src="https://images.unsplash.com/photo-1542080681-b52d382432af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <div class="overlay"></div>
-                            <div class=" hoverText">
-                                <div class="text-center">
-                                    <div class="text">
-                                        <h4 class="dealsfont">SUMMER</h4>
-                                        <h1>SALE</h1>
-                                        <h5>UP TO 40% OFF</h5>
-                                        <button class="my-3 buttoncolor">SHOP NOW</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4 height400">
-                        <div class="height250">
-                            <img class="img-fluid" src="https://images.unsplash.com/photo-1486663845017-3eedaa78617f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <div class="overlay"></div>
-                            <div class=" hoverText">
-                                <div class="text-center">
-                                    <div>
-                                        <h4 class="dealsfont">SUMMER</h4>
-                                        <h1>SALE</h1>
-                                        <h5>UP TO 40% OFF</h5>
-                                        <button class="my-3 buttoncolor">SHOP NOW</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="div_hotdeals">
+
+                    </span>
                 </div>
             </div>
             
@@ -241,26 +201,22 @@
                     <h3 class="py-4 headingfont">Choose your Budget</h3>
                     <div class="owl-carousel owl-theme">
                         <div class="item">
-                            <img class="img-" alt="Responsive image" src="https://images.unsplash.com/photo-1486663845017-3eedaa78617f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 0-1500</h3>
+                            <span class="img1"></span>
+                            <span class="price1"></span>
                         </div>
                         <div class="item">
-                            <img class="img-" alt="Responsive image" src="https://images.unsplash.com/photo-1541647376583-8934aaf3448a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 1500-3000</h3>
+                            <span class="img2"></span>
+                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> <span class="price2"></span></h3>
                         </div>
                         <div class="item">
-                            <img class="img-responsive" alt="Responsive image" src="https://images.unsplash.com/photo-1486663845017-3eedaa78617f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 3000-5000</h3>
+                            <span class="img3"></span>
+                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> <span class="price3"></span></h3>
                         </div>
                         <div class="item">
-                            <img class="img-responsive" alt="Responsive image" src="https://images.unsplash.com/photo-1571816119553-df62a2eedf56?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 5000-1000</h3>
+                            <span class="img4"></span>
+                            <h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> <span class="price4"></span></h3>
                         </div>
-                        <div class="item">
-                            <img class="img-responsive" alt="Responsive image" src="https://images.unsplash.com/photo-1486663845017-3eedaa78617f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
-                            <h3 class="inside-title headingfont buttoncolor">LUXURY COLLECTION</h3>
-                        </div>
-                       
+                 
                     </div>
                 </div>
 
@@ -455,7 +411,7 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
     <script src="./js/owl.carousel.js"></script>
@@ -489,7 +445,7 @@
             if (!data) 
             {
                 localStorage.removeItem('myMainKey');
-                window.location.href = "index.html";
+                window.location.href = "login.html";
             }
             else
             {
@@ -501,5 +457,85 @@
                 $(json_data).appendTo('#demo-content');
             }
         }
+
+        
+        $.ajax({
+            type : "GET",
+            crossDomain: true,
+            contentType: 'application/json',
+            url : "http://localhost:8000/get_enable_hotdeals",
+            beforeSend : function() {
+                    // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
+            },
+            success : function(response) {
+                var hotdeals = response.data;
+                for (i = 0; i < hotdeals.length; i++) 
+                {
+                    
+                    // $('.div_hotdeals_image').html('<img src="data:image/jpeg;base64,' + hotdeals[i]['img']['image'] + '" />');
+                    // $('.div_hotdeals_title').html('<span>'+hotdeals[i]['title']+'</span>');
+                    // $('.div_hotdeals_sub').html('<span>'+hotdeals[i]['sub_title']+'</span>');
+                    // $('.div_hotdeals_discount').html('<span>'+hotdeals[i]['discount_percentage']+'</span>');
+                    $('.div_hotdeals').append('<div class="col-md-12 col-lg-4"><div class="height250" style="width: inherit;"><img class="img-fluid" src="data:image/jpeg;charset=utf-8;base64,'+hotdeals[i]['img']['image']+' "><div class="overlay"></div><div class=" hoverText"><div class="text-center"><div><h4 class="dealsfont">'+hotdeals[i]['title']+'</h4><h1>'+hotdeals[i]['sub_title']+'</h1><h5>'+hotdeals[i]['discount_percentage']+'</h5><button class="my-3 buttoncolor">SHOP NOW</button></div></div></div></div></div>');
+                }            
+            }
+        });
+
+        $.ajax({
+            type : "GET",
+            crossDomain: true,
+            contentType: 'application/json',
+            url : "http://localhost:8000/get_enable_stylepicks",
+            beforeSend : function() {
+                    // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
+            },
+            success : function(response) {
+                var stylepicks = response.data;console.log(stylepicks[0]['price']);
+                $('.img1').append('<img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[0]['img']['image'] + '">');
+                $('.price1').append('<h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i>'+ stylepicks[0]['price'] +'</h3>');
+
+                $('.img2').append('<img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[1]['img']['image'] + '">');
+                $('.price2').append(stylepicks[1]['price']);
+
+                $('.img3').append('<img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[2]['img']['image'] + '">');
+                $('.price3').append(stylepicks[2]['price']);
+
+                $('.img4').append('<img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[3]['img']['image'] + '">');
+                $('.price4').append(stylepicks[3]['price']);
+                // $('.div_stylepicks').append('<div class="item"><img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[0]['img']['image'] + '"><h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 0-1500</h3></div><div class="item"><img class="img-" alt="Responsive image" src="data:image/jpeg;base64,' + stylepicks[1]['img']['image'] + '"><h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 1500-3000</h3></div><div class="item"><img class="img-responsive" alt="Responsive image" src="data:image/jpeg;base64,' + stylepicks[2]['img']['image'] + '"><h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 3000-5000</h3></div><div class="item"><img class="img-responsive" alt="Responsive image" src="data:image/jpeg;base64,' + stylepicks[3]['img']['image'] + '"><h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i> 5000-1000</h3></div>');
+                // for (i = 0; i < stylepicks.length; i++) 
+                // {
+                //     //console.log(stylepicks[i]['img']['image']);
+                //     $('.div_stylepicks').append('<div class="item"><img class="img-" alt="Responsive image" src="data:image/jpeg;base64,' + stylepicks[i]['img']['image'] + '"><h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i>'+stylepicks[i]['price']+'</h3></div>');
+                // }            
+            }
+        });
+        
+    });
+    $('#logout').on('click', function () {
+        localStorage.removeItem("myMainKey");
+        window.location.href = "login.html";
     });
 </script>
+<style>
+    #galleryCard img {
+    height: 480px;
+}
+.div_hotdeals
+{
+    display: contents;
+
+}
+.custom-button
+{
+    background-color: black;
+    margin: 20px;
+    font-weight: 500;
+}
+.custom-button:hover
+{
+    background-color: black;
+    margin: 20px;
+    font-weight: 500;
+}
+</style>

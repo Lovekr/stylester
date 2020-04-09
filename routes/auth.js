@@ -12,13 +12,14 @@ router.get('/logout', function(req, res){
   res.redirect('/login');
 });
 router.get('/facebook', passportFacebook.authenticate('facebook',{ scope : ['email'] }),function(req, res){
+  
 });
 
 router.get('/facebook/callback', passportFacebook.authenticate('facebook',{ failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-  res.redirect('/index.html');
-   res.status(200);
+    res.redirect('/index.html');
+    res.status(200);
   });
 
   /* GOOGLE ROUTER */
