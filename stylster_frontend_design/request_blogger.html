@@ -17,7 +17,7 @@
 
     <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <img class="navresponsive"  src="./asset/stylster logo1-01.svg"><a class="navbar-brand headingfont" href="#">STYLSTER</a>
+            <img class="navresponsive"  src="./asset/stylster logo1-01.svg"><a class="navbar-brand headingfont" href="index.html">STYLSTER</a>
             
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -73,7 +73,7 @@
             <!-- <img src="./asset/phone-01.svg"> -->
            </div>
            <div class="col-md-6 col-sm-12">
-            <form  id="postcontent">
+            <form enctype="multipart/form-data" action="/requestblogger" method="post" id="postcontent">
                 <div class="form-group">
                   <label for="nameInput">Blogger Name</label>
                   <input type="text" class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Name">      
@@ -153,6 +153,10 @@
                     <label for="locationInput">Blogger Location</label>
                     <input type="text" class="form-control" id="locationInput" aria-describedby="emailHelp" placeholder="Location">      
                   </div>
+                  <div class="form-group">
+                      <label for="fileupload">File Upload</label>
+                      <input id="file" name="myFile" type="file" accept="image/x-png,image/gif,image/jpeg" multiple/>
+                  </div>
                <div class="text-center">
                 <input type="submit" class="btn btn-dark">
                </div>
@@ -209,6 +213,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script> -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+
 </body>
 </html>
 <script>
@@ -228,16 +234,9 @@
                 var pinterestprofile=document.getElementById("pinterestProfile");
                 var pinterestlikes=document.getElementById("pinterestlikes");
                 var locationInput=document.getElementById("locationInput");
-                // alert(facebookprofile.value);
-                // alert(facebooklikes.value);
-                // alert(twitterprofile.value);
-                // alert(twitterlikes.value);
-                // alert(instagramprofile.value);
-                // alert(instagramlikes.value);
-                // alert(pinterestprofile.value);
-                // alert(pinterestlikes.value);
 
-                var data = {
+
+                var data_text = {
                     "name":name.value, 
                     "username":username.value,
                     "phone":phone.value,
@@ -261,18 +260,31 @@
                     crossDomain: true,
                     contentType: 'application/json',
                     url : "http://localhost:8000/requestblogger",
-                    data : JSON.stringify(data),
+                    data: function(){
+                    var data = new FormData();
+                    jQuery.each(jQuery('#file')[0].files, function(i, file) {
+                        data.append('myFile', file);
+                    });
+                    //data.append('body' , data); 
+                    data.append('text_value' , JSON.stringify(data_text));                   
+                    return data;
+                    }(),
+                    processData: false,
+                    contentType: false,
                     beforeSend : function() {
                           // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
                     },
                     success : function(response) {
                         
                         console.log(response);
-                        window.location.href = "request_blogger.html";
+                        //window.location.href = "request_blogger.html";
                     }
                 });
                 e.preventDefault();
             });
 
         });
+
+
+
 </script>

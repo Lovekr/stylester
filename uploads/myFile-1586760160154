@@ -1,0 +1,75 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return '<h3>Landing Pages</h3>';
+});
+
+Route::get('/about', function () {
+    return '<h3>About</h3>';
+});
+
+Route::get('/pancard','ContentsController@pancard');
+Route::post('/pancard/sendmail','ContentsController@sendmail');
+
+Route::get('/itr','ContentsController@itr');
+Route::post('/itr/itrsubmit','ContentsController@itrsubmit');
+
+Route::get('/e-stamp','ContentsController@estamp');
+Route::post('/e-stamp/estampsubmit','ContentsController@estampsubmit');
+
+Route::get('/expert','ContentsController@expert');
+Route::post('/expert/sender','ContentsController@sender');
+
+Route::get('/career','ContentsController@career');
+Route::post('/career/resume','ContentsController@resume');
+
+Route::get('/designer','ContentsController@designer');
+Route::post('/designer/send','ContentsController@send');
+
+Route::get('/service','ContentsController@service');
+
+Route::get('/pancorrection','ContentsController@pancorrection');
+Route::post('/pancorrection/correctionmail','ContentsController@correctionmail');
+
+Route::get('/panlost','ContentsController@panlost');
+Route::post('/panlost/lostpan','ContentsController@lostpan');
+
+Route::get('/gst','ContentsController@gst');
+Route::post('/gst/gstmail','ContentsController@gstmail');
+
+Route::get('/birth','ContentsController@birth');
+Route::post('/birth/birthmail','ContentsController@birthmail');
+
+
+Route::get('/fast_tag','ContentsController@fast_tag');
+Route::post('/fast_tag/fastag','ContentsController@fastag');
+
+Route::get('pay', 'RazorpayController@pay')->name('pay');
+
+// route for make payment request using post method
+Route::post('dopayment', 'RazorpayController@dopayment')->name('dopayment');
+
+
+
+Route::get('/clients','ClientController@index');
+Route::get('/clients/new','ClientController@newClient');
+Route::post('/clients/new','ClientController@create');
+Route::get('/clients/{client_id}','ClientController@show');
+Route::post('/clients/{client_id}','ClientController@modify');
+
+Route::post('/reservations/{client_id}','RoomssController@checkAvailableRooms');
+Route::post('/reservations/{client_id}','RoomssController@checkAvailableRooms');
+
+Route::post('/book/room/{client_id}/{room_id}/{date_in}/{date_out}','ReservationsController@bookRoom');
+Route::post('/clients/{client_id}','ClientController@modify');

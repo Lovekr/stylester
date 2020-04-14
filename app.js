@@ -9,6 +9,7 @@ var hotdeal = require('./routes/hotdeal.js');
 var user = require('./routes/user.js');
 var blogger = require('./routes/blogger.js');
 var auth = require('./routes/auth.js');
+var adminauth = require('./routes/adminuser.js');
 
 var passport = require('passport');
 var session = require('express-session');
@@ -47,6 +48,7 @@ app.use('/', hotdeal);
 app.use('/', user);
 app.use('/auth', auth);
 app.use('/',blogger);
+app.use('/',adminauth);
 
 app.listen(port, () => {
     console.log("Server listening on port " + port);

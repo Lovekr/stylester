@@ -9,6 +9,8 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./responsive.css">
+    <!-- <link rel="stylesheet" href="./css/preferences_modal.css"> -->
+    
     <title>STYLSTER</title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -17,13 +19,16 @@
     <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-light">
             <img class="addright"
-            src="./asset/stylster logo1-01.svg"><a class="navbar-brand headingfont" href="#">STYLSTER</a>
+            src="./asset/stylster logo1-01.svg"><a class="navbar-brand headingfont" href="index.html">STYLSTER</a>
             
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <input type="text" placeholder="Search:(Eg...)">
+                <form method="GET" action="/searchproducts" id="searchcontent">
+                    <input type="text" id="searchInput" placeholder="Search:(Eg...)">
+                </form>
+              
               <form action="request_blogger.html" method="get">
                 <button class="btn btn-primary custom-button">Blogger</button>
                 </form>
@@ -45,8 +50,7 @@
                   </div>
                   <div class="flexIcon">
                       <img src="./asset/nav icon/navHeart.png">
-                      <img src="./asset/nav icon/navUser.png">
-                      <button id="logout">Logout</button>
+                      <img src="./asset/nav icon/navUser.png">                      
                     <!-- <i class="fa fa-heart border border-dark"></i>
                     <i class="fa fa-user border border-dark"></i> -->
                   </div>
@@ -55,22 +59,50 @@
                 
         </nav>
         <div class="navbar-manu">
-          <a href="#">MEN</a>
-          <a href="#">WOMEN</a>
-          <a href="#">DEALS</a>
-          <a href="#">STYLE PICK</a>
-          <a href="#">BLOGGER NETWORK</a>
-          <a href="#">ABOUT</a>
+          <a href="/product.html">MEN</a>
+          <a href="/product_women.html">WOMEN</a>
+          <a href="/deals.html">DEALS</a>
+          <a href="/stylepick.html">STYLE PICK</a>
+          <a href="/blogNetwork.html">BLOGGER NETWORK</a>
+          <a href="/about.html">ABOUT</a>
         </div>
     </div>
 
+        <!-- Modal -->
+        <!-- <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">    
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Set Preferences</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+                </div>
+                <div class="modal-body">
+                <form>
+                    <label class="container">Male
+                        <input type="radio" checked="checked" name="radio">
+                        <span class="checkmark"></span>
+                      </label>
+                      <label class="container">Female
+                        <input type="radio" name="radio">
+                        <span class="checkmark"></span>
+                      </label>
+                </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Set</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>            
+            </div>
+        </div> -->
 
 
     <div id="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-12 bg-white">
-
+                <form>                    
                     <h4 class="fontsmall">Hi <span id="demo-content"></span>, welcome to  <span class="stylster headingfont">STYLSTER</span></h4>
                     <div class="category mt-3">
                         <div class="flex">
@@ -82,8 +114,8 @@
                     <div class="row mt-3">
                         <div class="col-xs-12 col-sm-6 pad2">
                             <div class="form-group fontsmall">
-                                <label for="exampleInputEmail1 ">Choose a brand</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="e.g. Gucci,ASOS,...">
+                                <label for="brandInput ">Choose a brand</label>
+                                <input type="text" class="form-control" id="brandInput" aria-describedby="emailHelp" placeholder="e.g. Gucci,ASOS,...">
                             </div>
                             <div class="form-group mt-3 fontsmall">
                                 <label for="exampleInputEmail1 ">Search</label>
@@ -102,9 +134,10 @@
                                   </select>
                             </div>
                            
-                            <button class="btn btn-primary ">GO</button>
+                            <button class="btn btn-primary" >GO</button>
                         </div>
                     </div>
+                </form>
                 </div>
                 <div class="col-md-6 col-sm-12"></div>
             </div>
@@ -112,11 +145,11 @@
     </div>
 
     <div id="shoping">
-        <div class="container-fluid">
+        <div class="container-fluid" id="section2">
             <div class="row">
                 <div class="col-md-6 col-sm-12 pad0">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row" >
                             
                             <div class="col-xs-12 col-sm-5 pad0 height300 bgPink res800">
                                 <ul class="text-right">
@@ -367,6 +400,7 @@
     </div> 
 </div>
 
+<div id="product"></div>
 
 <div id="footer" class="container-fluid">
     <div class="row">
@@ -490,7 +524,7 @@
                     // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
             },
             success : function(response) {
-                var stylepicks = response.data;console.log(stylepicks[0]['price']);
+                var stylepicks = response.data;
                 $('.img1').append('<img class="img-" alt="Responsive image" src="data:image/jpeg;base64,'  + stylepicks[0]['img']['image'] + '">');
                 $('.price1').append('<h3 class="inside-title headingfont buttoncolor"><i class="fa fa-inr"></i>'+ stylepicks[0]['price'] +'</h3>');
 
@@ -510,12 +544,43 @@
                 // }            
             }
         });
+
+
+        $("#searchcontent").submit(function(e) 
+        {
+            e.preventDefault();
+            var searchfield=document.getElementById("searchInput").value;
+            searchtext = {"searchtext":searchfield};
+            $.ajax({
+                    type : "GET",
+                    crossDomain: true,
+                    contentType: 'application/json',
+                    url : "http://localhost:8000/searchproducts",
+                    data : searchtext,
+                    beforeSend : function() {
+                          // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
+                    },
+                    success : function(response) {
+                        $('#main-header,#galleryCard,#section2').remove();
+                        $("#product").load("product_list.html"); 
+                        console.log(response);
+                    }
+                });
+                e.preventDefault();
+        });
         
     });
     $('#logout').on('click', function () {
         localStorage.removeItem("myMainKey");
         window.location.href = "login.html";
     });
+
+    // $('#preference').submit(function(e) 
+    // {
+    //     alert("jjs");
+    //     window.location.href = "/index.html";
+    // });
+
 </script>
 <style>
     #galleryCard img {
@@ -538,4 +603,13 @@
     margin: 20px;
     font-weight: 500;
 }
+
+.product-Page .heart-icon{
+    position: absolute;
+    right: 8%;
+    top: 5%;
+    width: 25px!important;
+    height: 25px!important;
+}
+
 </style>

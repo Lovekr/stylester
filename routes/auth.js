@@ -3,9 +3,9 @@ var router = express.Router();
 var passportFacebook = require('../auth/facebook.js');
 var passportGoogle = require('../auth/google.js');
 
-router.get('/login', function(req, res, next) {
-  res.redirect('/login', { title: 'Please Sign In with:' });
-});
+
+
+
 /* LOGOUT ROUTER */
 router.get('/logout', function(req, res){
   req.logout();

@@ -28,7 +28,10 @@ var requestBloggerSchema = new Schema({
   pinterestprofile:{ type:String},
   pinterestlikes:{ type:String},
   location: {type:String},
-  status: {type:String}
+  status: {type:String},
+  reject_reason : {type:String},
+  image : {type:Array},
+  isVerified: { type: Boolean, default: false },
 }, {strict: false,timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 var RequestBlogger = mongoose.model('RequestBlogger', requestBloggerSchema);

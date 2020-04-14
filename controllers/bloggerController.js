@@ -9,6 +9,7 @@ var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs-extra');
 
 
 exports.loginPost = async (req,res,next)=>
@@ -113,7 +114,7 @@ exports.signupPost = async (req, res, next) => {
                         from: 'no-reply@yourwebapplication.com', 
                         to: data.email, 
                         subject: 'Account Verification Token', 
-                        text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n' 
+                        text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation_blogger\/' + token.token + '.\n' 
                     };
                     
                     transporter.sendMail(mailOptions, function (err) {
@@ -139,7 +140,7 @@ exports.confirmationPost = async (req, res, next) =>
             if (!token) return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
             // If we found a token, find a matching user
             //console.log(token._userId);
-            Blogger.findOne({ _id: token._userId }, function (err, blogger) { console.log(blogger);
+            RequestBlogger.findOne({ _id: token._userId }, function (err, blogger) { console.log(blogger);
                 if (!blogger) return res.status(400).send({ msg: 'We were unable to find a user for this token.' });
                 if (blogger.isVerified) return res.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
 
@@ -160,26 +161,86 @@ exports.requestBlogger = async (req,res,next)=>
 {
     try 
     {
-        const errors = validationResult(req); // Finds the validation errors in this request and wraps them in an object with handy functions
+        var files = req.files;
+        var filesArray = [];
+        files.forEach(file => {
+            var img = fs.readFileSync(file.path);
+            var encode_image = img.toString('base64');
+            // Define a JSONobject for the image attributes for saving to database
+        
+            var finalImg = {
+                image:  new Buffer.from(encode_image, 'base64'),
+                contentType: file.mimetype,
+                imagepath:file.path      
+            };
 
-      if (!errors.isEmpty()) {
-        res.status(422).json({ errors: errors.array() });
-        return;
-      }
+            filesArray.push(finalImg);
+        });
+        
+       
+        var value = JSON.parse(req.body.text_value);
 
-      const { name, username, email, phone, facebookprofile, facebooklikes, twitterprofile, twitterlikes, instagramprofile, instagramlikes, pinterestprofile, pinterestlikes, location } = req.body
-
-      await RequestBlogger.findOne({ email : email}, function (err, blogger)
+      await RequestBlogger.findOne({ email : value.email}, function (err, blogger)
       {
           // Make sure user doesn't already exist
             if (blogger) return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
             
             var status = 'pending';
-            const newRequesBlogger = RequestBlogger.create({name, username, email, phone, facebookprofile, facebooklikes, twitterprofile, twitterlikes, instagramprofile, instagramlikes, pinterestprofile, pinterestlikes, location, status},(err,data)=>{
+
+            var bloggerData = new RequestBlogger({
+            name: value.name,
+            username:value.username,
+            email: value.email,
+            phone: value.phone,
+            facebookprofile:value.facebookprofile,
+            facebooklikes:value.facebooklikes,
+            twitterprofile:value.twitterprofile,
+            twitterlikes:value.twitterlikes,
+            instagramprofile:value.instagramprofile,
+            instagramlikes:value.instagramlikes,
+            pinterestprofile:value.pinterestprofile,
+            pinterestlikes:value.pinterestlikes,
+            location: value.location,
+            status: status,
+            image : filesArray
+            });
+
+            
+            const newRequesBlogger = RequestBlogger.create(bloggerData,(err,data)=>{
                 if(err)
                 {
                     return res.status(500).send({ msg: err.message });
                 }
+
+                var token = new Token({ _userId: data._id, token: crypto.randomBytes(16).toString('hex') });
+                token.save(function (err) {
+                    if (err) { return res.status(500).send({ msg: err.message }); }
+
+                    // Send the email
+                    var transporter = nodemailer.createTransport({
+                         host: 'smtp.gmail.com',
+                        port: 587,
+                        secure: false,
+                        requireTLS: true,
+                        auth: {
+                                user: 'ajithjbdvt@gmail.com',
+                                pass: 'Silvermoon@123'
+                            }
+                        });
+                       
+                    var mailOptions = 
+                    { 
+                        from: 'no-reply@yourwebapplication.com', 
+                        to: data.email, 
+                        subject: 'Account Verification Token', 
+                        text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation_blogger\/' + token.token + '.\n' 
+                    };
+                    
+                    transporter.sendMail(mailOptions, function (err) {
+                        if (err) { return res.status(500).send({ msg: err.message }); }
+                        res.status(200).send('A verification email has been sent to ' + data.email + '.');
+                    });
+                });
 
                 return res.status(200).send('Blogger request accepted.');
             });
@@ -187,7 +248,7 @@ exports.requestBlogger = async (req,res,next)=>
 
     } catch (error) 
     {
-        
+        return res.status(500).send({ msg: error.message });
     }
 };
 
@@ -196,7 +257,7 @@ exports.getBlogger = async (req,res,next)=>{
     {
         var bloggers = function(callback)
         {
-            RequestBlogger.find().lean().sort({_id: 'asc'}).exec(function(err, bloggers){
+            RequestBlogger.find({isVerified:'true'}).lean().sort({_id: 'asc'}).exec(function(err, bloggers){
                             if(err)
                             { 
                                 callback(err, null);
@@ -212,7 +273,52 @@ exports.getBlogger = async (req,res,next)=>{
 
         var blogger_count = function(callback)
         {
-            RequestBlogger.countDocuments().lean().sort({_id: 'asc'}).exec(function(err, blogger_count){
+            RequestBlogger.countDocuments({isVerified:'true'}).lean().sort({_id: 'asc'}).exec(function(err, blogger_count){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, blogger_count);
+                            }
+                      });
+        }
+
+        async.parallel([bloggers, blogger_count], function(err, results){   
+       return  res.json({data: results[0], totalCount: results[1]});
+    });
+        
+    }
+    catch(e)
+    {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+
+exports.getApprovedBlogger = async (req,res,next)=>{
+     try
+    {
+        var bloggers = function(callback)
+        {
+            RequestBlogger.find({status:'accepted'}).lean().sort({_id: 'asc'}).exec(function(err, bloggers){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, bloggers);
+                            }
+                      });
+        }
+
+
+
+        var blogger_count = function(callback)
+        {
+            RequestBlogger.countDocuments({status:'accepted'}).lean().sort({_id: 'asc'}).exec(function(err, blogger_count){
                             if(err)
                             { 
                                 callback(err, null);
@@ -277,6 +383,54 @@ exports.setBloggerStatus = async(req,res,next)=>
          }
          if(numberAffected)
          {
+
+            RequestBlogger.findById({_id:id},function(err,blogger)
+            {
+                if(err) 
+                {
+                res.status(400).json({ status: 400, message: err.message });
+                }
+                else
+                {                   
+                    switch (blogger.status) {
+                    case 'accepted':
+                        textMessage = "The blogger request has accepted successfully.";
+                        break;
+                    case 'hold':
+                        textMessage = "The blogger request has holded.";
+                        break;
+                    case 'rejected':
+                        textMessage = "The blogger request has be rejected for some reasons.";                        
+                        break;
+                    default:
+                        textMessage = "Your blogger request is underprocess.";
+                    }
+                    // Send the email
+                    var transporter = nodemailer.createTransport({
+                        host: 'smtp.gmail.com',
+                        port: 587,
+                        secure: false,
+                        requireTLS: true,
+                        auth: {
+                                user: 'ajithjbdvt@gmail.com',
+                                pass: 'Silvermoon@123'
+                            }
+                        });
+                       
+                    var mailOptions = 
+                    { 
+                        from: 'no-reply@yourwebapplication.com', 
+                        to: blogger.email, 
+                        subject: 'Blogger Status', 
+                        text: textMessage 
+                    };
+                    
+                    transporter.sendMail(mailOptions, function (err) {
+                        if (err) { return res.status(500).send({ msg: err.message }); }
+                        res.status(200).send('A Status email has been sent to ' + blogger.email + '.');
+                    });
+                }
+            });
     
             res.status(200).json({ status: 200, message: 'Updated Successfully' });
          }
