@@ -253,13 +253,13 @@
                     };
 
                 //    alert(JSON.stringify(data));
-
+                var base_url = window.location.origin;
                 e.preventDefault();
                 $.ajax({
                     type : "POST",
                     crossDomain: true,
                     contentType: 'application/json',
-                    url : "http://localhost:8000/requestblogger",
+                    url : base_url+"/requestblogger",
                     data: function(){
                     var data = new FormData();
                     jQuery.each(jQuery('#file')[0].files, function(i, file) {

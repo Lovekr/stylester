@@ -6,12 +6,15 @@ var Token  = mongoose.model('Token');
 mongoose.set('useFindAndModify', false);
 var async = require('async');
 var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const { body, validationResult } = require('express-validator');
 
 
 exports.loginAdminPost = async (req,res,next)=>
 {
+  //console.log(`${process.env.SECRET_KEY}`); 
     try {
         const authTokens = {};
 
@@ -21,7 +24,7 @@ exports.loginAdminPost = async (req,res,next)=>
         res.status(422).json({ errors: errors.array() });
         return;
       }
-        console.log(req.body);
+        
         const { username, password } = req.body;
 
         const hashedPassword = getHashedPassword(password);
@@ -35,15 +38,15 @@ exports.loginAdminPost = async (req,res,next)=>
             }
             if(!admin)
             {
-                 return res.status(400).send({ message: 'Invalid Email/Password.' });
+                 return res.status(400).send({ msg: 'Invalid Email/Password.' });
             }
 
+           
+            var token = jwt.sign({ role: admin.role }, `${process.env.SECRET_KEY}`);
 
-            var authToken = new Token({ role: admin.role, token: crypto.randomBytes(16).toString('hex') });
+            
 
-            authTokens["token"] = authToken;
-
-            return res.status(200).send({message:'Successfully loggedin',data:authTokens}); 
+            return res.status(200).send({token}); 
         });
 
        
@@ -97,6 +100,97 @@ exports.signupAdminPost = async (req, res, next) => {
    }
 }
 
+
+exports.getAllUsers = function(req,res,next)
+{
+    try
+    {
+        var users = function(callback)
+        {
+            AdminUser.find().lean().sort({_id: 'asc'}).exec(function(err, users){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, users);
+                            }
+                      });
+        }
+
+
+
+        var userscount = function(callback)
+        {
+            AdminUser.countDocuments().lean().sort({_id: 'asc'}).exec(function(err, users_count){
+                            if(err)
+                            { 
+                                callback(err, null);
+                            }
+                            else
+                            {
+                                callback(null, users_count);
+                            }
+                      });
+        }
+
+        async.parallel([users, userscount], function(err, results){   
+       return  res.json({data: results[0], totalCount: results[1]});
+    });
+        
+    }
+    catch(e)
+    {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
+
+
+exports.getUserId = async (req,res,next)=>
+{
+    try 
+    {
+        var id = req.params.id;
+
+        await AdminUser.findById(id).lean(1).sort({_id: 'asc'}).exec(function(err, user){
+            if(err)
+            { 
+                return res.status(500).send({ msg: err.message });
+            }
+            else
+            {
+               return res.status(200).send({data:user});
+            }
+        });
+        
+    } catch (e) 
+    {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};
+
+
+exports.updateUserById = async (req,res,next)=>
+{
+    try {
+
+      await AdminUser.updateOne({_id: req.body._id}, req.body, {upsert: true}, function(err,user){
+        if(err)
+        { 
+            return res.status(500).send({ msg: err.message });
+        }
+        else
+        {
+            return res.status(200).send({msg:"User Updated Successfully!"});
+        }
+      });
+
+    } catch (error) {
+         return res.status(400).json({ status: 400, message: error.message });
+    }
+}
 
 
 

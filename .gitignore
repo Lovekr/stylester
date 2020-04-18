@@ -1,2 +1,3 @@
 #dependices
 /node_modules
+.env
