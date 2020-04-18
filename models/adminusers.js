@@ -6,7 +6,8 @@ var adminUserSchema = new Schema({
   username: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  role:{ type: String},
 }, {strict: false,timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }});
 
 var AdminUser = mongoose.model('AdminUser', adminUserSchema);
