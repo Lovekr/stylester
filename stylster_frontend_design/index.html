@@ -492,12 +492,13 @@
             }
         }
 
-        
+        var base_url = window.location.origin;
+
         $.ajax({
             type : "GET",
             crossDomain: true,
             contentType: 'application/json',
-            url : "http://localhost:8000/get_enable_hotdeals",
+            url : base_url+"/get_enable_hotdeals",
             beforeSend : function() {
                     // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
             },
@@ -519,7 +520,7 @@
             type : "GET",
             crossDomain: true,
             contentType: 'application/json',
-            url : "http://localhost:8000/get_enable_stylepicks",
+            url : base_url+"/get_enable_stylepicks",
             beforeSend : function() {
                     // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
             },
@@ -555,7 +556,7 @@
                     type : "GET",
                     crossDomain: true,
                     contentType: 'application/json',
-                    url : "http://localhost:8000/searchproducts",
+                    url : base_url+"/searchproducts",
                     data : searchtext,
                     beforeSend : function() {
                           // $(".post_submitting").show().html("<center><img src='images/loading.gif'/></center>");
